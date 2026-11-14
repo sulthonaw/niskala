@@ -5,21 +5,19 @@ export type BadgeVariant = 'neutral' | 'mint' | 'amber' | 'coral' | 'yellow';
 
 export interface BadgeProps extends HTMLAttributes<HTMLSpanElement> {
   variant?: BadgeVariant;
-  showDot?: boolean;
   children: ReactNode;
 }
 
-const dotStyles: Record<BadgeVariant, string> = {
-  neutral: 'bg-zinc-400',
-  mint: 'bg-[#A4FFF0]',
-  amber: 'bg-[#FF9C33]',
-  coral: 'bg-[#FF6060]',
-  yellow: 'bg-[#FFEB67]',
+const variantStyles: Record<BadgeVariant, string> = {
+  neutral: 'bg-white/[0.04] border-white/[0.1] text-zinc-300',
+  mint: 'bg-[#A4FFF0]/[0.06] border-[#A4FFF0]/25 text-[#A4FFF0]',
+  amber: 'bg-[#FF9C33]/[0.08] border-[#FF9C33]/30 text-[#FF9C33]',
+  coral: 'bg-[#FF6060]/[0.08] border-[#FF6060]/30 text-[#FF6060]',
+  yellow: 'bg-[#FFEB67]/[0.08] border-[#FFEB67]/30 text-[#FFEB67]',
 };
 
 export function Badge({
   variant = 'neutral',
-  showDot = false,
   children,
   className = '',
   ...props
@@ -27,15 +25,12 @@ export function Badge({
   return (
     <span
       className={cn(
-        'inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium whitespace-nowrap shrink-0',
-        'bg-white/[0.06] border border-white/[0.11] text-zinc-200',
+        'inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md border text-[11px] font-mono tracking-wide whitespace-nowrap shrink-0',
+        variantStyles[variant],
         className
       )}
       {...props}
     >
-      {showDot && (
-        <span className={cn('w-1.5 h-1.5 rounded-full shrink-0', dotStyles[variant])} />
-      )}
       {children}
     </span>
   );

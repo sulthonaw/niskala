@@ -1,7 +1,7 @@
 import { MapPinIcon } from '@heroicons/react/24/outline';
-import { Badge } from '../../components/ui/Badge';
 import { Button } from '../../components/ui/Button';
 import { Card } from '../../components/ui/Card';
+import { SelectDropdown } from '../../components/ui/SelectDropdown';
 import { AnomalyCalendarCard } from '../../features/niskala/components/AnomalyCalendarCard';
 import { AnswerCardsGrid } from '../../features/niskala/components/AnswerCardsGrid';
 import { DistrictRankingCard } from '../../features/niskala/components/DistrictRankingCard';
@@ -41,16 +41,16 @@ export function HomePage() {
   if (loading) {
     return (
       <div className="flex flex-col gap-5">
-        <div className="h-24 rounded-[22px] bg-white/[0.04] border border-white/[0.08] animate-pulse" />
+        <div className="h-24 rounded-[22px] bg-white/[0.03] border border-white/[0.07]" />
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
           {[1, 2, 3].map((idx) => (
             <div
               key={idx}
-              className="h-56 rounded-[22px] bg-white/[0.04] border border-white/[0.08] animate-pulse"
+              className="h-56 rounded-[22px] bg-white/[0.03] border border-white/[0.07]"
             />
           ))}
         </div>
-        <div className="h-96 rounded-[22px] bg-white/[0.04] border border-white/[0.08] animate-pulse" />
+        <div className="h-96 rounded-[22px] bg-white/[0.03] border border-white/[0.07]" />
       </div>
     );
   }
@@ -78,13 +78,10 @@ export function HomePage() {
       {/* Control Header & Region Selector */}
       <section className="flex flex-col lg:flex-row lg:items-end justify-between gap-4">
         <div className="flex flex-col gap-2">
-          <div className="flex items-center gap-2 flex-wrap">
-            <Badge variant="mint" showDot>
-              {dataset.meta.region}
-            </Badge>
-            <Badge variant="neutral" className="font-mono">
-              Focus: {formatYmLabel(focusMonth)}
-            </Badge>
+          <div className="flex items-center gap-2.5 flex-wrap font-mono text-[11px] uppercase tracking-[0.16em]">
+            <span className="text-[#A4FFF0]">{dataset.meta.region}</span>
+            <span className="text-zinc-600">/</span>
+            <span className="text-zinc-400">Focus: {formatYmLabel(focusMonth)}</span>
           </div>
           <h1 className="text-2xl sm:text-3xl font-semibold tracking-tight text-white">
             Harmonized Hotspot Anomaly Calendar
@@ -96,7 +93,7 @@ export function HomePage() {
         </div>
 
         {/* Region Dropdown */}
-        <div className="flex flex-col gap-1.5 min-w-[240px]">
+        <div className="flex flex-col gap-1.5 min-w-[250px]">
           <label
             htmlFor="region-select"
             className="text-[11px] font-mono uppercase tracking-wider text-zinc-400 flex items-center gap-1.5"
@@ -104,18 +101,17 @@ export function HomePage() {
             <MapPinIcon className="w-3.5 h-3.5 text-[#A4FFF0]" />
             <span>Area of Interest (15 Regions)</span>
           </label>
-          <select
+          <SelectDropdown
             id="region-select"
             value={regionSlug}
-            onChange={(e) => setRegion(e.target.value)}
-            className="w-full rounded-full bg-[#0e1012] border border-white/[0.14] px-4 py-2.5 text-sm text-white focus:outline-none focus:border-[#A4FFF0] cursor-pointer"
-          >
-            {dataset.meta.districts.map((dist) => (
-              <option key={dist.slug} value={dist.slug} className="bg-[#0e1012] text-white">
-                {dist.name}
-              </option>
-            ))}
-          </select>
+            onChange={setRegion}
+            ariaLabel="Select province or regency"
+            options={dataset.meta.districts.map((dist) => ({
+              value: dist.slug,
+              label: dist.name,
+              hint: dist.slug === 'kalimantan-barat' ? 'Province' : undefined,
+            }))}
+          />
         </div>
       </section>
 
@@ -133,8 +129,8 @@ export function HomePage() {
               onClick={() => setScenario(sc.region, sc.focus)}
               className={
                 isCurrent
-                  ? 'px-3 py-1 rounded-full text-xs font-medium bg-[#A4FFF0] text-[#050507] cursor-pointer'
-                  : 'px-3 py-1 rounded-full text-xs font-medium bg-white/[0.05] text-zinc-300 border border-white/[0.1] hover:bg-white/[0.1] cursor-pointer transition-colors'
+                  ? 'px-3 py-1 rounded-md text-xs font-medium bg-[#A4FFF0] text-[#050507] cursor-pointer'
+                  : 'hover-slide-fill [--slide-bg:rgba(164,255,240,0.12)] px-3 py-1 rounded-md text-xs font-medium bg-white/[0.03] text-zinc-300 border border-white/[0.12] hover:border-[#A4FFF0]/45 hover:text-white cursor-pointer'
               }
             >
               {sc.label}
@@ -165,7 +161,7 @@ export function HomePage() {
             onSelectFocusMonth={setFocusMonth}
           />
         </div>
-        <div className="xl:col-span-4 min-w-0">
+        <div className="xl:col-span-4 min-w-0 xl:sticky xl:top-24 xl:self-start">
           <DistrictRankingCard
             focusMonth={focusMonth}
             selectedSlug={regionSlug}

@@ -3,10 +3,10 @@ import { Navbar } from './Navbar';
 
 export function MainLayout() {
   return (
-    <div className="min-h-screen flex flex-col bg-monochrome-cosmos text-white antialiased overflow-x-hidden">
+    <div className="min-h-screen flex flex-col bg-monochrome-cosmos text-white antialiased overflow-x-clip">
       <Navbar />
 
-      <main className="flex-1 max-w-[1440px] w-full mx-auto px-4 sm:px-6 py-6 min-w-0">
+      <main className="flex-1 max-w-[1440px] w-full mx-auto px-4 sm:px-6 pt-28 md:pt-20 pb-6 min-w-0">
         <Outlet />
       </main>
 

@@ -24,7 +24,7 @@ export function DistrictRankingCard({
         <span className="font-mono text-[11px] text-zinc-400">≥ 20 pts threshold</span>
       }
     >
-      <div className="flex flex-col gap-2 max-h-[540px] overflow-y-auto pr-1">
+      <div className="flex flex-col gap-1.5 max-h-[420px] xl:max-h-[min(460px,calc(100vh-12rem))] overflow-y-auto pr-1">
         {rankings.map((item) => {
           const isSelected = item.district.slug === selectedSlug;
           const swatchColor =
@@ -38,10 +38,10 @@ export function DistrictRankingCard({
               type="button"
               onClick={() => onSelectRegion(item.district.slug)}
               className={cn(
-                'w-full text-left px-3.5 py-2.5 rounded-xl border transition-all cursor-pointer flex items-center justify-between gap-3',
+                'hover-row-glide hover-slide-fill [--slide-bg:rgba(164,255,240,0.09)] w-full text-left px-3 py-1.5 rounded-lg border cursor-pointer flex items-center justify-between gap-3',
                 isSelected
-                  ? 'bg-[#A4FFF0]/12 border-[#A4FFF0]/45'
-                  : 'bg-white/[0.03] border-white/[0.07] hover:bg-white/[0.07]'
+                  ? 'bg-[#A4FFF0]/12 border-[#A4FFF0]/55'
+                  : 'bg-white/[0.025] border-white/[0.08] hover:border-white/[0.22]'
               )}
             >
               <div className="flex items-center gap-3 min-w-0">
@@ -49,7 +49,7 @@ export function DistrictRankingCard({
                   {item.rank !== null ? `#${item.rank}` : '—'}
                 </span>
                 <span
-                  className="w-2.5 h-2.5 rounded-full shrink-0 border border-white/20"
+                  className="w-2.5 h-2.5 rounded-[3px] shrink-0 border border-white/20"
                   style={{ backgroundColor: swatchColor }}
                 />
                 <div className="min-w-0">

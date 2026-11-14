@@ -19,6 +19,7 @@ import { cn } from '../../../utils/formatters';
 import { Badge } from '../../../components/ui/Badge';
 import { Button } from '../../../components/ui/Button';
 import { Card } from '../../../components/ui/Card';
+import { useRevealOnScroll } from '../../../hooks/useRevealOnScroll';
 
 export interface AnswerCardsGridProps {
   activeDistrict: DistrictMeta;
@@ -39,6 +40,7 @@ export function AnswerCardsGrid({
   activeDistrictRank,
   onSelectRegion,
 }: AnswerCardsGridProps) {
+  const [cardsVisible, observeCards] = useRevealOnScroll();
   const maxMonthlyMean = Math.max(...activeDistrict.monthly_mean, 1);
   const maxHistoryHotspots = Math.max(
     ...sameMonthHistory.map((item) => item.hotspots ?? 0),
@@ -63,12 +65,15 @@ export function AnswerCardsGrid({
       : 'bg-zinc-400';
 
   return (
-    <section className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5 items-stretch">
+    <section
+      ref={observeCards}
+      className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5 items-stretch"
+    >
       {/* CARD 1: WHEN (Normal Seasonal Peak) */}
       <Card
         title="Seasonal Peak"
         headerAction={
-          <Badge variant="mint" showDot>
+          <Badge variant="mint">
             {formatPeakMonths(activeDistrict.peak_months)}
           </Badge>
         }
@@ -88,11 +93,15 @@ export function AnswerCardsGrid({
                     title={`${MONTH_SHORT_NAMES[idx]} normal: ${val.toFixed(1)} hotspots`}
                   >
                     <span
+                      data-visible={cardsVisible}
                       className={cn(
-                        'w-full max-w-[14px] rounded-full transition-all',
-                        isPeak ? 'bg-[#A4FFF0]' : 'bg-white/20 group-hover:bg-white/40'
+                        'chart-bar-reveal w-full max-w-[14px] rounded-t-[2px]',
+                        isPeak ? 'bg-[#A4FFF0]' : 'bg-white/25 group-hover:bg-white/50'
                       )}
-                      style={{ height: `${heightPct}%` }}
+                      style={{
+                        height: `${heightPct}%`,
+                        transitionDelay: `${idx * 35}ms`,
+                      }}
                     />
                   </div>
                 );
@@ -132,7 +141,7 @@ export function AnswerCardsGrid({
         title={`Anomaly Severity · ${formatYmLabel(focusMonth)}`}
         headerAction={
           isWarningClass ? (
-            <Badge variant="coral" showDot>
+            <Badge variant="coral">
               <ExclamationTriangleIcon className="w-3.5 h-3.5 text-[#FF6060]" />
               <span>{focusClassLabel}</span>
             </Badge>
@@ -151,7 +160,7 @@ export function AnswerCardsGrid({
                 <span>0</span>
               </div>
               <div className="flex-1 flex items-end justify-between gap-1 h-full">
-                {sameMonthHistory.map((item) => {
+                {sameMonthHistory.map((item, idx) => {
                   const isFocus = item.ym === focusMonth;
                   const pct = Math.max(((item.hotspots ?? 0) / maxHistoryHotspots) * 100, 5);
                   return (
@@ -161,15 +170,19 @@ export function AnswerCardsGrid({
                       title={`${formatYmLabel(item.ym)}: ${(item.hotspots ?? 0).toLocaleString()} hotspots (${item.ratio?.toFixed(2) ?? '—'}x)`}
                     >
                       <span
+                        data-visible={cardsVisible}
                         className={cn(
-                          'w-full max-w-[10px] rounded-full transition-all',
+                          'chart-bar-reveal w-full max-w-[10px] rounded-t-[2px]',
                           isFocus
                             ? isWarningClass
                               ? 'bg-[#FF6060]'
                               : 'bg-[#A4FFF0]'
-                            : 'bg-white/20'
+                            : 'bg-white/25 hover:bg-white/50'
                         )}
-                        style={{ height: `${pct}%` }}
+                        style={{
+                          height: `${pct}%`,
+                          transitionDelay: `${idx * 25}ms`,
+                        }}
                       />
                     </div>
                   );
@@ -202,25 +215,23 @@ export function AnswerCardsGrid({
       <Card
         title={`District Watch · ${formatYmLabel(focusMonth)}`}
         headerAction={
-          <span className="w-7 h-7 rounded-full bg-white/[0.07] border border-white/[0.12] flex items-center justify-center font-mono text-[11px] text-zinc-200">
-            14
-          </span>
+          <Badge variant="neutral">14 regencies</Badge>
         }
       >
         <div className="flex-1 flex flex-col justify-between gap-3.5">
-          {/* Key-Value Pill Rows */}
+          {/* Key-Value Rows */}
           <div className="flex flex-col gap-2">
-            <div className="flex items-center justify-between px-3.5 py-2 rounded-xl bg-white/[0.04] border border-white/[0.08] text-xs">
+            <div className="hover-row-glide flex items-center justify-between px-3.5 py-2 rounded-md bg-white/[0.03] hover:bg-white/[0.06] border border-white/[0.08] text-xs">
               <span className="text-zinc-400">Highest Anomaly</span>
               <span className="font-semibold text-white">
                 {topDistrict ? topDistrict.district.name : 'No elevated activity'}
               </span>
             </div>
 
-            <div className="flex items-center justify-between px-3.5 py-2 rounded-xl bg-white/[0.04] border border-white/[0.08] text-xs">
+            <div className="hover-row-glide flex items-center justify-between px-3.5 py-2 rounded-md bg-white/[0.03] hover:bg-white/[0.06] border border-white/[0.08] text-xs">
               <span className="text-zinc-400">Ratio vs. Normal</span>
               <span className="inline-flex items-center gap-1.5 font-mono font-semibold text-white tabular-nums">
-                <span className={cn('w-1.5 h-1.5 rounded-full', topDotColor)} />
+                <span className={cn('w-2 h-2 rounded-[2px] shrink-0', topDotColor)} />
                 <span>
                   {topDistrict?.cell?.ratio !== null && topDistrict?.cell?.ratio !== undefined
                     ? `${topDistrict.cell.ratio.toFixed(1)}× normal`
@@ -229,7 +240,7 @@ export function AnswerCardsGrid({
               </span>
             </div>
 
-            <div className="flex items-center justify-between px-3.5 py-2 rounded-xl bg-white/[0.04] border border-white/[0.08] text-xs">
+            <div className="hover-row-glide flex items-center justify-between px-3.5 py-2 rounded-md bg-white/[0.03] hover:bg-white/[0.06] border border-white/[0.08] text-xs">
               <span className="text-zinc-400">Harmonized Hotspots</span>
               <span className="font-mono text-zinc-200 tabular-nums">
                 {topDistrict?.cell?.hotspots !== null && topDistrict?.cell?.hotspots !== undefined
@@ -239,7 +250,7 @@ export function AnswerCardsGrid({
             </div>
 
             {activeDistrictRank && (
-              <div className="flex items-center justify-between px-3.5 py-2 rounded-xl bg-white/[0.03] border border-white/[0.07] text-xs">
+              <div className="hover-row-glide flex items-center justify-between px-3.5 py-2 rounded-md bg-white/[0.03] hover:bg-white/[0.06] border border-white/[0.08] text-xs">
                 <span className="text-zinc-400">Selected Rank</span>
                 <span className="font-mono text-[#A4FFF0]">
                   {activeDistrictRank.rank !== null

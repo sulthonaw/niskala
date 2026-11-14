@@ -8,6 +8,7 @@ import type {
 import { cn } from '../../../utils/formatters';
 import { Badge } from '../../../components/ui/Badge';
 import { Card } from '../../../components/ui/Card';
+import { useRevealOnScroll } from '../../../hooks/useRevealOnScroll';
 
 export interface ValidationRowProps {
   meta: MetaData;
@@ -22,6 +23,7 @@ export function ValidationRow({
   sipongiSeries,
   annualSeries,
 }: ValidationRowProps) {
+  const [chartsVisible, observeCharts] = useRevealOnScroll();
   const isProvince = activeDistrict.slug === 'kalimantan-barat';
   const spearmanVal = isProvince
     ? meta.sipongi.spearman_province_2016_2025
@@ -57,13 +59,16 @@ export function ValidationRow({
   const marker2018 = naiveCoords.find((c) => c.year === 2018);
 
   return (
-    <section className="grid grid-cols-1 lg:grid-cols-2 gap-5 items-stretch">
+    <section
+      ref={observeCharts}
+      className="grid grid-cols-1 lg:grid-cols-2 gap-5 items-stretch"
+    >
       {/* Left: SiPongi Comparison (Stacked dual bars sharing X-axis 2016-2026) */}
       <Card
         title={`SiPongi Official Comparison · ${activeDistrict.name}`}
         headerAction={
           spearmanVal !== undefined && (
-            <Badge variant="mint" showDot>
+            <Badge variant="mint">
               Spearman {spearmanVal.toFixed(2)}
             </Badge>
           )
@@ -77,7 +82,7 @@ export function ValidationRow({
               <span>Max {Math.round(maxAreaHa).toLocaleString()} ha</span>
             </div>
             <div className="flex items-end gap-1.5 h-20 border-b border-white/[0.08] pb-1">
-              {sipongiSeries.map((row) => {
+              {sipongiSeries.map((row, idx) => {
                 const pct = Math.max((row.area_ha / maxAreaHa) * 100, 4);
                 return (
                   <div
@@ -86,11 +91,15 @@ export function ValidationRow({
                     title={`${row.year}${row.partial ? ' (Jan-Jul)' : ''}: ${Math.round(row.area_ha).toLocaleString()} ha`}
                   >
                     <span
+                      data-visible={chartsVisible}
                       className={cn(
-                        'w-full max-w-[18px] rounded-t-md',
+                        'chart-bar-reveal w-full max-w-[18px] rounded-t-[2px]',
                         row.flag_area_high ? 'bg-[#FF9C33]' : 'bg-white/75'
                       )}
-                      style={{ height: `${pct}%` }}
+                      style={{
+                        height: `${pct}%`,
+                        transitionDelay: `${idx * 40}ms`,
+                      }}
                     />
                   </div>
                 );
@@ -105,7 +114,7 @@ export function ValidationRow({
               <span>Max {Math.round(maxSipongiHotspots).toLocaleString()} pts</span>
             </div>
             <div className="flex items-end gap-1.5 h-20 border-b border-white/[0.08] pb-1">
-              {sipongiSeries.map((row) => {
+              {sipongiSeries.map((row, idx) => {
                 const pct = Math.max(((row.hotspots ?? 0) / maxSipongiHotspots) * 100, 4);
                 return (
                   <div
@@ -114,8 +123,12 @@ export function ValidationRow({
                     title={`${row.year}${row.partial ? ' (Jan-Jul)' : ''}: ${(row.hotspots ?? 0).toLocaleString()} hotspots`}
                   >
                     <span
-                      className="w-full max-w-[18px] rounded-t-md bg-[#A4FFF0]"
-                      style={{ height: `${pct}%` }}
+                      data-visible={chartsVisible}
+                      className="chart-bar-reveal w-full max-w-[18px] rounded-t-[2px] bg-[#A4FFF0]"
+                      style={{
+                        height: `${pct}%`,
+                        transitionDelay: `${idx * 40}ms`,
+                      }}
                     />
                   </div>
                 );
@@ -175,7 +188,8 @@ export function ValidationRow({
 
           <svg
             viewBox={`0 0 ${width} ${height}`}
-            className="w-full h-44 overflow-visible"
+            data-visible={chartsVisible}
+            className="chart-line-reveal w-full h-44 overflow-visible"
             role="img"
             aria-label="Annual naive sum vs harmonized hotspots 2003 to 2025"
           >

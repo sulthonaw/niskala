@@ -8,8 +8,20 @@ export interface NavLinkConfig {
 export const APP_NAV_LINKS: NavLinkConfig[] = [
   {
     path: '/',
-    label: 'OVERVIEW',
-    shortLabel: 'OVERVIEW',
+    label: 'HOME',
+    shortLabel: 'HOME',
+    description: 'Planetary overview & telemetry showcase',
+  },
+  {
+    path: '/about',
+    label: 'ABOUT',
+    shortLabel: 'ABOUT',
+    description: 'What NISKALA is, mission & satellite architecture',
+  },
+  {
+    path: '/calendar',
+    label: 'CALENDAR',
+    shortLabel: 'CALENDAR',
     description: 'Harmonized anomaly calendar & answer cards',
   },
   {
@@ -19,9 +31,9 @@ export const APP_NAV_LINKS: NavLinkConfig[] = [
     description: 'District telemetry matrix & SiPongi checks',
   },
   {
-    path: '/about',
-    label: 'METHODOLOGY',
-    shortLabel: 'METHOD',
-    description: 'Harmonization pipeline & design tokens',
+    path: '/docs',
+    label: 'DOCS',
+    shortLabel: 'DOCS',
+    description: 'Documentation, harmonization formula & repository',
   },
 ];
