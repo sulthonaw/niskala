@@ -1,4 +1,4 @@
-import { ExclamationTriangleIcon } from '@heroicons/react/24/outline';
+import { ExclamationTriangleIcon } from '@heroicons/react/24/solid';
 import type {
   AnnualRow,
   DistrictMeta,
@@ -77,9 +77,11 @@ export function ValidationRow({
         <div className="flex flex-col gap-4">
           {/* Top Mini Bar Chart: Official Burned Area (ha) */}
           <div className="flex flex-col gap-1.5">
-            <div className="flex items-center justify-between text-[11px] font-mono text-zinc-400">
+            <div className="flex items-center justify-between text-[10px] font-brand uppercase tracking-[0.08em] text-zinc-400">
               <span>SiPongi Burned Area (ha)</span>
-              <span>Max {Math.round(maxAreaHa).toLocaleString()} ha</span>
+              <span className="font-sans font-medium normal-case tracking-normal tabular-nums">
+                Max {Math.round(maxAreaHa).toLocaleString()} ha
+              </span>
             </div>
             <div className="flex items-end gap-1.5 h-20 border-b border-white/[0.08] pb-1">
               {sipongiSeries.map((row, idx) => {
@@ -109,9 +111,11 @@ export function ValidationRow({
 
           {/* Bottom Mini Bar Chart: Harmonized Hotspots */}
           <div className="flex flex-col gap-1.5">
-            <div className="flex items-center justify-between text-[11px] font-mono text-zinc-400">
+            <div className="flex items-center justify-between text-[10px] font-brand uppercase tracking-[0.08em] text-zinc-400">
               <span>Niskala Harmonized Hotspots</span>
-              <span>Max {Math.round(maxSipongiHotspots).toLocaleString()} pts</span>
+              <span className="font-sans font-medium normal-case tracking-normal tabular-nums">
+                Max {Math.round(maxSipongiHotspots).toLocaleString()} pts
+              </span>
             </div>
             <div className="flex items-end gap-1.5 h-20 border-b border-white/[0.08] pb-1">
               {sipongiSeries.map((row, idx) => {
@@ -134,7 +138,7 @@ export function ValidationRow({
                 );
               })}
             </div>
-            <div className="flex items-center justify-between gap-1 text-[10px] font-mono text-zinc-500">
+            <div className="flex items-center justify-between gap-1 text-[10px] tabular-nums text-zinc-500">
               {sipongiSeries.map((row) => (
                 <span key={`yr-${row.year}`} className="flex-1 text-center">
                   {row.partial ? `${String(row.year).slice(2)}*` : String(row.year).slice(2)}

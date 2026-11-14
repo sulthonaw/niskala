@@ -27,7 +27,8 @@ export type DocBlock =
   | { kind: 'figure'; src: string; alt: string; caption: string }
   | { kind: 'code'; title?: string; code: string }
   | { kind: 'callout'; tone?: 'info' | 'warn'; title?: string; text: string }
-  | { kind: 'links'; items: { label: string; href: string; note?: string }[] };
+  | { kind: 'links'; items: { label: string; href: string; note?: string }[] }
+  | { kind: 'calibrationTable' };
 
 export interface DocSection {
   id: string;
@@ -50,6 +51,39 @@ export interface DocGroup {
   title: string;
   items: DocArticle[];
 }
+
+/* ------------------------------------------------------------------ */
+/* VALIDATION                                                          */
+/* ------------------------------------------------------------------ */
+
+const calibrationValidation: DocArticle = {
+  id: 'calibration-validation',
+  group: 'Validation',
+  label: 'Calibration & Validation',
+  title: 'District Calibration & SiPongi Correlation',
+  summary:
+    'Shrunk NOAA-20 / Aqua multipliers, normal peak months, and 2016–2025 SiPongi correlations across West Kalimantan and all 14 districts.',
+  sources: ['data-harmonization/data/web/meta.json', 'frontend/public/data/meta.json'],
+  sections: [
+    {
+      id: 'matrix',
+      heading: 'Regional calibration parameters',
+      blocks: [
+        {
+          kind: 'text',
+          text: 'Before April 2018, MODIS Aqua counts are multiplied by each region’s shrunk NOAA-20 / Aqua ratio (`r_district`). Click **Inspect** on any row to jump straight to that region in the Anomaly Calendar.',
+        },
+        { kind: 'calibrationTable' },
+        {
+          kind: 'callout',
+          tone: 'info',
+          title: 'How shrunk ratios work',
+          text: 'Districts with very few overlap hotspots (such as Kota Pontianak) are pulled toward the province average ($k = 100$) so small sample noise does not distort the multiplier. Full formulas are in **Harmonization** and **Validation with SiPongi**.',
+        },
+      ],
+    },
+  ],
+};
 
 /* ------------------------------------------------------------------ */
 /* ABOUT                                                               */
@@ -104,7 +138,7 @@ const whatIsNiskala: DocArticle = {
         },
         {
           kind: 'text',
-          text: 'An experimental one-month outlook is also produced by the pipeline (see **Forecast model**). It gives a range and a probability, not a single number.',
+          text: 'The pipeline also produces an experimental one-month outlook in `forecast.json` (see **Forecast model**). It gives a range and a probability instead of a single number, though only the historical calendar, ranking, and SiPongi views are wired into the web interface so far.',
         },
       ],
     },
@@ -114,7 +148,7 @@ const whatIsNiskala: DocArticle = {
       blocks: [
         {
           kind: 'text',
-          text: 'All heavy work is done offline by a Python pipeline in the `data-harmonization` repository. It reads the raw files, harmonizes, computes the normals and anomalies, runs the forecast, and writes small JSON files. The website is a static React app that only reads those JSON files, so there is no server or database to run.',
+          text: 'All heavy work runs offline in a Python pipeline inside the `data-harmonization` folder of this repository. It reads the raw files, harmonizes sensors, computes the normals and anomalies, runs the forecast, and writes small JSON files. The website is a static React app that reads those JSON files, so there is no server or database to run.',
         },
         {
           kind: 'table',
@@ -122,7 +156,21 @@ const whatIsNiskala: DocArticle = {
           rows: [
             ['Data pipeline', 'Python, pandas, numpy, shapely, statsmodels', 'Raw data → harmonized monthly series → JSON'],
             ['Notebooks', 'Jupyter', 'EDA and modeling, executed and kept in the repo'],
-            ['Frontend', 'React 19, Vite, TypeScript, Tailwind', 'Reads /data/*.json and draws the calendar and cards'],
+            ['Frontend', 'React 19, Vite, TypeScript, Tailwind, KaTeX', 'Reads meta, calendar, annual and sipongi JSON to render the dashboard and math docs'],
+          ],
+        },
+      ],
+    },
+    {
+      id: 'dashboard-guide',
+      heading: 'How to read the web app',
+      blocks: [
+        {
+          kind: 'list',
+          items: [
+            '**Calendar (`/calendar`):** Pick West Kalimantan or any of the 14 districts, jump to reference months (`Jul 2026` or `Oct 2026`), or toggle between the color grid and the sortable table. Rows from January 2001 to June 2002 appear as **Terra only** (uncalibrated).',
+            '**District Ranking (`>= 20 pts` rule):** Months with tiny normal averages can look like extreme spikes from just one or two detections. Districts with fewer than **20** harmonized hotspots in the focus month are marked *low activity* and placed below active districts.',
+            '**Calibration & Validation (top of Docs):** Lists each region’s shrunk and raw NOAA-20 / Aqua multipliers, normal peak months, and 2016–2025 Spearman correlation against SiPongi.',
           ],
         },
       ],
@@ -155,7 +203,7 @@ const whyKalbar: DocArticle = {
       blocks: [
         {
           kind: 'text',
-          text: 'Up to 13 November 2026 the province already has **79,758** harmonized hotspots. That is the highest yearly total in our 2002–2026 record, just above 2006, and about **4.3 times** the 2025 total. August 2026 alone had 37,034. A tool that says “how unusual is this” is most useful in a year like this one.',
+          text: 'Up to 13 November 2026 (UTC), the province already has **79,758** harmonized hotspots. That is the highest yearly total in our 2002–2026 record, just above 2006, and about **4.3 times** the 2025 total. August 2026 alone had 37,034. A tool that says “how unusual is this” is most useful in a year like this one.',
         },
         {
           kind: 'table',
@@ -239,7 +287,7 @@ const pipelineProcess: DocArticle = {
       blocks: [
         {
           kind: 'text',
-          text: 'Put the raw downloads in `data/raw/` as described in the repository README. Large raw files are ignored by git. Then run the whole pipeline with one command. On a normal laptop the forecast step takes about one minute.',
+          text: 'Put the raw downloads in `data/raw/` as described in `data-harmonization/README.md`. Large raw files are ignored by git. Then run the whole pipeline with one command. On a normal laptop the forecast step takes about one minute.',
         },
         {
           kind: 'code',
@@ -269,8 +317,8 @@ const pipelineProcess: DocArticle = {
             ['calendar.json', 'One row per district and month: harmonized count, normal, ratio, class, source, partial flag'],
             ['annual.json', 'Yearly totals per district: Aqua, Terra, NOAA-20, naive sum and harmonized'],
             ['sipongi.json', 'Burned area next to hotspots per district and year, with correlation and flags'],
-            ['forecast.json', 'One-month outlook, backtest metrics and model notes'],
-            ['points/', 'Recent hotspot points for the map'],
+            ['forecast.json', 'One-month outlook and backtest metrics (pipeline output; not yet displayed in the web UI)'],
+            ['points/', 'Recent hotspot points for a future map view (not yet displayed in the web UI)'],
           ],
         },
       ],
@@ -992,7 +1040,7 @@ const inference: DocArticle = {
       blocks: [
         {
           kind: 'text',
-          text: 'Step 6 writes everything to `forecast.json`. Each region has the median, range and probabilities, so the frontend only reads and displays values; no model runs in the browser.',
+          text: 'Step 6 writes the pre-computed medians, ranges, and probabilities to `data-harmonization/data/web/forecast.json`. When a forecast view is wired into the frontend, it will only read and display those numbers; no model needs to run in the browser (the live web UI currently shows the historical calendar, ranking, and SiPongi views only).',
         },
         {
           kind: 'code',
@@ -1124,6 +1172,19 @@ validation: sipongi`,
         },
       ],
     },
+    {
+      id: 'web-integration',
+      heading: '7. Web UI integration',
+      blocks: [
+        {
+          kind: 'list',
+          items: [
+            'Copy `forecast.json` into `frontend/public/data/` and add a one-month outlook card showing the median, 10th–90th percentile band, and probability above normal.',
+            'Build an interactive district map on `/calendar` using the GeoJSON files already exported to `points/`.',
+          ],
+        },
+      ],
+    },
   ],
 };
 
@@ -1200,6 +1261,7 @@ const references: DocArticle = {
 };
 
 export const DOC_GROUPS: DocGroup[] = [
+  { title: 'Validation', items: [calibrationValidation] },
   { title: 'About', items: [whatIsNiskala, whyKalbar] },
   {
     title: 'Data & Statistics',

@@ -4,7 +4,7 @@ import {
   ArrowUpRightIcon,
   ChevronLeftIcon,
   ChevronRightIcon,
-} from '@heroicons/react/24/outline';
+} from '@heroicons/react/24/solid';
 import earthFaviconGlobeImg from '../../../assets/earth-favicon-globe.webp';
 import { cn } from '../../../utils/formatters';
 import { Button } from '../../../components/ui/Button';
@@ -21,7 +21,7 @@ const TELEMETRY_SLIDES: TelemetrySlide[] = [
     tag: 'Mission Overview',
     metrics: [
       { label: 'REGION', value: 'West Kalimantan' },
-      { label: 'ARCHIVE', value: '2002 – 2026' },
+      { label: 'ARCHIVE', value: 'Jul 2002 – 2026' },
       { label: 'BASELINE', value: '2003–2025 LOYO' },
       { label: 'COVERAGE', value: '15 Regions', accent: 'mint' },
     ],
@@ -73,12 +73,8 @@ export function LandingHero() {
       </div>
 
       {/* Top Editorial Telemetry Eyebrow */}
-      <div className="relative z-20 animate-hero-reveal flex flex-col sm:flex-row items-center gap-1 sm:gap-3 font-mono text-[10px] sm:text-[11px] uppercase tracking-[0.16em] sm:tracking-[0.2em] text-zinc-400 text-center px-3">
-        <span className="hidden sm:inline-block w-6 h-px bg-[#A4FFF0]/40" />
-        <span className="text-[#A4FFF0]">NASA Earth Observation</span>
-        <span className="hidden sm:inline text-zinc-600">/</span>
+      <div className="relative z-20 animate-hero-reveal flex flex-col sm:flex-row items-center gap-1 sm:gap-3 font-brand text-[11px] sm:text-xs uppercase tracking-[0.18em] sm:tracking-[0.22em] text-zinc-400 text-center px-3">
         <span className="text-zinc-300">West Kalimantan Fire Readiness</span>
-        <span className="hidden sm:inline-block w-6 h-px bg-[#A4FFF0]/40" />
       </div>
 
       {/* Central Visual Composition: Giant NISKALA Wordmark + Overlapping HD Earth Globe */}
@@ -117,14 +113,14 @@ export function LandingHero() {
               <ChevronLeftIcon className="w-4 h-4 transition-transform duration-200 group-hover:-translate-x-0.5" />
             </button>
 
-            <div className="relative overflow-hidden flex-1 rounded-lg bg-[#0b0d11]/90 backdrop-blur-lg border border-white/[0.12] px-4 sm:px-7 py-3.5 shadow-2xl">
+            <div className="relative overflow-hidden flex-1 rounded-2xl bg-[#0e1012]/80 backdrop-blur-md border border-white/[0.11] px-4 sm:px-7 py-3.5 shadow-[0_18px_48px_rgba(0,0,0,0.65)]">
               <div
                 key={activeSlide.id}
                 className="relative z-10 grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-5 animate-hero-reveal"
               >
                 {activeSlide.metrics.map((m) => (
                   <div key={m.label} className="flex flex-col gap-0.5 min-w-0">
-                    <span className="font-mono text-[10px] uppercase tracking-wider text-zinc-400">
+                    <span className="font-brand text-[10px] uppercase tracking-[0.12em] text-zinc-400">
                       {m.label}
                     </span>
                     <span
@@ -178,9 +174,9 @@ export function LandingHero() {
             Launch Anomaly Calendar
           </Button>
         </Link>
-        <Link to="/catalog">
+        <Link to="/docs">
           <Button variant="outline" size="lg">
-            View Calibration Matrix
+            View Calibration &amp; Docs
           </Button>
         </Link>
       </div>

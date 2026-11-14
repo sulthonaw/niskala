@@ -6,7 +6,7 @@ export interface CardProps extends HTMLAttributes<HTMLDivElement> {
   subtitle?: string;
   headerAction?: ReactNode;
   footer?: ReactNode;
-  /** Retained for backwards compatibility */
+  /** Toggle ambient corner mint-green radial orbs */
   cornerGlow?: boolean;
   noPadding?: boolean;
   children: ReactNode;
@@ -17,7 +17,7 @@ export function Card({
   subtitle,
   headerAction,
   footer,
-  cornerGlow: _cornerGlow,
+  cornerGlow = true,
   noPadding = false,
   children,
   className = '',
@@ -26,13 +26,32 @@ export function Card({
   return (
     <section
       className={cn(
-        'relative overflow-hidden rounded-xl flex flex-col',
-        'bg-[#0b0d11]/90 backdrop-blur-md transition-colors duration-300',
-        'border border-white/[0.1] hover:border-white/[0.18]',
+        'relative overflow-clip rounded-[22px] flex flex-col',
+        'bg-[#0e1012]/80 backdrop-blur-md transition-colors duration-300',
+        'border border-white/[0.11] hover:border-white/[0.18] shadow-[0_18px_48px_rgba(0,0,0,0.65)]',
         className
       )}
       {...props}
     >
+      {/* Top hairline specular edge */}
+      <span
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-white/25 to-transparent"
+      />
+
+      {/* Signature corner blurred mint-green radial orbs */}
+      {cornerGlow && (
+        <>
+          <span
+            aria-hidden="true"
+            className="pointer-events-none absolute -top-12 -left-12 w-40 h-40 rounded-full bg-[#A4FFF0]/[0.13] blur-2xl"
+          />
+          <span
+            aria-hidden="true"
+            className="pointer-events-none absolute -bottom-14 -right-12 w-44 h-44 rounded-full bg-[#A4FFF0]/[0.12] blur-2xl"
+          />
+        </>
+      )}
 
       {/* Optional Card Header */}
       {(title || subtitle || headerAction) && (

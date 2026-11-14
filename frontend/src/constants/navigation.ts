@@ -10,30 +10,12 @@ export const APP_NAV_LINKS: NavLinkConfig[] = [
     path: '/',
     label: 'HOME',
     shortLabel: 'HOME',
-    description: 'Planetary overview & telemetry showcase',
-  },
-  {
-    path: '/about',
-    label: 'ABOUT',
-    shortLabel: 'ABOUT',
-    description: 'What NISKALA is, mission & satellite architecture',
+    description: 'Overview, harmonization & data sources',
   },
   {
     path: '/calendar',
     label: 'CALENDAR',
     shortLabel: 'CALENDAR',
-    description: 'Harmonized anomaly calendar & answer cards',
-  },
-  {
-    path: '/catalog',
-    label: 'VALIDATION',
-    shortLabel: 'VALIDATION',
-    description: 'District telemetry matrix & SiPongi checks',
-  },
-  {
-    path: '/docs',
-    label: 'DOCS',
-    shortLabel: 'DOCS',
-    description: 'Documentation, harmonization formula & repository',
+    description: 'Interactive hotspot anomaly calendar & district rankings',
   },
 ];

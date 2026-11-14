@@ -108,28 +108,28 @@ export function SensorSwathMatrix() {
     <div className="relative py-6 sm:py-8 border-y border-white/[0.08]">
       {/* Instrument Header Strip */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-4">
-        <div className="flex flex-wrap items-center gap-2 sm:gap-3 font-mono text-[10px] sm:text-[11px] uppercase tracking-[0.18em]">
+        <div className="flex flex-wrap items-center gap-2 sm:gap-3 font-brand text-[10px] sm:text-[11px] uppercase tracking-[0.14em]">
           <span className="text-[#A4FFF0]">UNIFIED SENSOR SWATH</span>
           <span className="text-zinc-600">/</span>
           <span className="text-zinc-400">MODIS + VIIRS 28×6 FOCAL PLANE</span>
         </div>
 
-        <div className="flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.14em]">
+        <div className="flex items-center gap-3 font-brand text-[10px] uppercase tracking-[0.12em]">
           {scanState.phase === 'detected' && (
             <span className="inline-flex items-center gap-1.5 text-[#FF6060]">
-              <span className="w-1.5 h-1.5 bg-[#FF6060]" />
+              <span className="w-1.5 h-1.5 rounded-full bg-[#FF6060]" />
               ALERT · ANOMALY LOCKED
             </span>
           )}
           {scanState.phase === 'scanning' && (
             <span className="inline-flex items-center gap-1.5 text-[#A4FFF0]">
-              <span className="w-1.5 h-1.5 bg-[#A4FFF0]" />
+              <span className="w-1.5 h-1.5 rounded-full bg-[#A4FFF0]" />
               SCANNING SECTOR
             </span>
           )}
           {scanState.phase === 'resetting' && (
             <span className="inline-flex items-center gap-1.5 text-zinc-500">
-              <span className="w-1.5 h-1.5 bg-zinc-500" />
+              <span className="w-1.5 h-1.5 rounded-full bg-zinc-500" />
               NEXT ORBIT PASS
             </span>
           )}
@@ -140,7 +140,7 @@ export function SensorSwathMatrix() {
       <div className="relative">
         <div
           ref={containerRef}
-          className="relative overflow-hidden bg-[#04070c] border border-white/[0.09] p-2 sm:p-2.5"
+          className="relative overflow-hidden rounded-2xl bg-[#0e1012]/80 backdrop-blur-md border border-white/[0.11] p-2.5 sm:p-3.5"
         >
           {/* Smooth Hardware-Accelerated Vertical Scan Beam */}
           <div
@@ -149,7 +149,7 @@ export function SensorSwathMatrix() {
             className="pointer-events-none absolute inset-y-0 left-0 w-16 sm:w-24 z-20 transition-opacity duration-200"
             style={{ opacity: 0 }}
           >
-            <div className="w-full h-full bg-gradient-to-r from-transparent via-[#A4FFF0]/[0.07] to-[#A4FFF0]/[0.24] border-r border-[#A4FFF0]/80" />
+            <div className="w-full h-full bg-gradient-to-r from-transparent via-[#A4FFF0]/[0.04] to-[#A4FFF0]/[0.12] border-r border-[#A4FFF0]/45" />
           </div>
 
           <div
@@ -179,7 +179,7 @@ export function SensorSwathMatrix() {
                   <div
                     key={key}
                     className={cn(
-                      'relative aspect-square rounded-[1px] border transition-colors duration-200',
+                      'relative aspect-square rounded-[3px] border transition-colors duration-200',
                       lockCore
                         ? 'bg-[#E5484D]/85 border-[#FF787D]'
                         : lockWarm
@@ -192,7 +192,7 @@ export function SensorSwathMatrix() {
                     {lockCore && (
                       <span
                         aria-hidden="true"
-                        className="pointer-events-none absolute inset-[2px] border border-white/35"
+                        className="pointer-events-none absolute inset-[2px] rounded-[2px] border border-white/35"
                       />
                     )}
                   </div>
@@ -202,67 +202,24 @@ export function SensorSwathMatrix() {
           </div>
         </div>
 
-        {/* Restrained Film-Style Compact Anomaly Alert (docked cleanly below grid on mobile, overlaid bottom-left on sm+) */}
+        {/* Clean Glassmorphic Anomaly Callout */}
         <div
           aria-live="polite"
           className={cn(
-            'pointer-events-none mt-2 sm:mt-0 sm:absolute sm:z-30 sm:left-4 sm:bottom-4 transition-all duration-300 ease-out',
+            'pointer-events-none mt-2.5 sm:mt-0 sm:absolute sm:z-30 sm:left-4 sm:bottom-4 transition-all duration-300 ease-out',
             showAlert ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-1.5'
           )}
         >
-          <div className="relative inline-flex w-auto items-stretch bg-[#120608]/95 border border-[#E5484D]/75 shadow-lg overflow-hidden">
-            {/* Slim Film-Style Diagonal Hazard Stripes (Left) */}
-            <span
-              aria-hidden="true"
-              className="w-2 shrink-0 border-r border-[#E5484D]/35"
-              style={{
-                backgroundImage:
-                  'repeating-linear-gradient(-45deg, rgba(229,72,77,0.85) 0, rgba(229,72,77,0.85) 3px, transparent 3px, transparent 6px)',
-              }}
-            />
-
-            <div className="flex items-center gap-2.5 px-3 py-1.5">
-              {/* Crisp Warning Triangle SVG */}
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                className="w-4 h-4 shrink-0 text-[#FF6060]"
-                aria-hidden="true"
-              >
-                <path
-                  d="M12 3.5L21 19.5H3L12 3.5Z"
-                  stroke="currentColor"
-                  strokeWidth="1.9"
-                  strokeLinejoin="miter"
-                />
-                <path
-                  d="M12 9.5V13.5"
-                  stroke="currentColor"
-                  strokeWidth="1.9"
-                  strokeLinecap="square"
-                />
-                <rect x="11.1" y="15.8" width="1.8" height="1.8" fill="currentColor" />
-              </svg>
-
-              <div className="flex flex-col leading-tight">
-                <span className="font-mono text-[10px] font-bold uppercase tracking-[0.18em] text-[#FF6060]">
-                  DANGER · ANOMALY ZONE
-                </span>
-                <span className="font-mono text-[9px] uppercase tracking-[0.12em] text-zinc-300 mt-0.5">
-                  KETAPANG · 8.1× ABOVE BASELINE
-                </span>
-              </div>
+          <div className="inline-flex items-center gap-2.5 rounded-xl bg-[#0e1012]/90 backdrop-blur-md border border-[#E5484D]/45 px-3.5 py-2 shadow-xl">
+            <span className="w-2 h-2 rounded-full bg-[#FF6060] shrink-0" />
+            <div className="flex flex-col leading-tight">
+              <span className="font-brand text-[10px] uppercase tracking-[0.14em] text-[#FF6060]">
+                ANOMALY ZONE DETECTED
+              </span>
+              <span className="font-brand text-[10px] uppercase tracking-[0.1em] text-zinc-300 mt-0.5">
+                KETAPANG · 8.1× ABOVE BASELINE
+              </span>
             </div>
-
-            {/* Slim Film-Style Diagonal Hazard Stripes (Right) */}
-            <span
-              aria-hidden="true"
-              className="w-2 shrink-0 border-l border-[#E5484D]/35"
-              style={{
-                backgroundImage:
-                  'repeating-linear-gradient(-45deg, rgba(229,72,77,0.85) 0, rgba(229,72,77,0.85) 3px, transparent 3px, transparent 6px)',
-              }}
-            />
           </div>
         </div>
       </div>
@@ -270,23 +227,23 @@ export function SensorSwathMatrix() {
       {/* Bottom Harmonization Legend & Caption */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pt-4 text-xs text-zinc-400">
         <p className="max-w-2xl leading-relaxed">
-          MODIS (<span className="font-mono text-zinc-200">1 km</span>) and VIIRS NOAA-20 (
-          <span className="font-mono text-zinc-200">375 m</span>) passes converge onto one spatial
-          grid using scale factor <span className="font-mono text-[#A4FFF0]">r</span> so true
-          thermal spikes stand out cleanly.
+          MODIS Aqua (<span className="font-medium text-zinc-200">1 km</span>) counts are scaled by
+          district factor <span className="font-medium text-[#A4FFF0]">r</span> to match VIIRS NOAA-20
+          (<span className="font-medium text-zinc-200">375 m</span>), so real fire spikes stand out
+          without sensor-change jumps.
         </p>
 
-        <div className="flex items-center gap-3 font-mono text-[10px] uppercase tracking-wider shrink-0">
+        <div className="flex items-center gap-3.5 font-brand text-[10px] uppercase tracking-[0.1em] shrink-0">
           <span className="inline-flex items-center gap-1.5 text-zinc-400">
-            <span className="w-2 h-2 bg-[#0b1118] border border-white/20" />
+            <span className="w-2.5 h-2.5 rounded-[3px] bg-[#0b1118] border border-white/20" />
             Nominal
           </span>
           <span className="inline-flex items-center gap-1.5 text-[#A4FFF0]">
-            <span className="w-2 h-2 bg-[#A4FFF0]/25 border border-[#A4FFF0]/60" />
+            <span className="w-2.5 h-2.5 rounded-[3px] bg-[#A4FFF0]/25 border border-[#A4FFF0]/60" />
             Sweep
           </span>
           <span className="inline-flex items-center gap-1.5 text-[#FF6060]">
-            <span className="w-2 h-2 bg-[#E5484D]/85 border border-[#FF787D]" />
+            <span className="w-2.5 h-2.5 rounded-[3px] bg-[#E5484D]/85 border border-[#FF787D]" />
             Anomaly
           </span>
         </div>

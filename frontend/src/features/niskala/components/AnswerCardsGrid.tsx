@@ -1,7 +1,7 @@
 import {
   ArrowsPointingOutIcon,
   ExclamationTriangleIcon,
-} from '@heroicons/react/24/outline';
+} from '@heroicons/react/24/solid';
 import {
   CLASS_SHORT_LABEL,
   MONTH_SHORT_NAMES,
@@ -107,13 +107,13 @@ export function AnswerCardsGrid({
                 );
               })}
             </div>
-            <div className="flex items-center justify-between text-[10px] font-mono text-zinc-500">
+            <div className="flex items-center justify-between text-[10px] font-brand text-zinc-500">
               {MONTH_SHORT_NAMES.map((m, idx) => (
                 <span
                   key={m}
                   className={cn(
                     'flex-1 text-center',
-                    activeDistrict.peak_months.includes(idx + 1) && 'text-[#A4FFF0] font-semibold'
+                    activeDistrict.peak_months.includes(idx + 1) && 'text-[#A4FFF0]'
                   )}
                 >
                   {m.slice(0, 1)}
@@ -129,7 +129,7 @@ export function AnswerCardsGrid({
                 {formatPeakMonths(activeDistrict.peak_months)}
               </strong>
             </span>
-            <span className="font-mono text-zinc-300 tabular-nums">
+            <span className="font-medium text-zinc-300 tabular-nums">
               {Math.round(maxMonthlyMean).toLocaleString()} avg
             </span>
           </div>
@@ -154,7 +154,7 @@ export function AnswerCardsGrid({
           {/* Same-Month Multi-Year Comparison Bars */}
           <div className="flex flex-col gap-2 pt-2">
             <div className="flex items-end gap-2 h-28 border-b border-white/[0.08] pb-2">
-              <div className="flex flex-col justify-between h-full text-[10px] font-mono text-zinc-500 pr-1">
+              <div className="flex flex-col justify-between h-full text-[10px] tabular-nums text-zinc-500 pr-1">
                 <span>{Math.round(maxHistoryHotspots).toLocaleString()}</span>
                 <span>{Math.round(maxHistoryHotspots / 2).toLocaleString()}</span>
                 <span>0</span>
@@ -189,7 +189,7 @@ export function AnswerCardsGrid({
                 })}
               </div>
             </div>
-            <div className="flex items-center justify-between text-[10px] font-mono text-zinc-500 pl-8">
+            <div className="flex items-center justify-between text-[10px] text-zinc-500 tabular-nums pl-8">
               <span>{sameMonthHistory[0]?.year ?? ''}</span>
               <span>Same-month history ({formatYmLabel(focusMonth).slice(0, 3)})</span>
               <span>{sameMonthHistory[sameMonthHistory.length - 1]?.year ?? ''}</span>
@@ -197,12 +197,12 @@ export function AnswerCardsGrid({
           </div>
 
           <div className="pt-3 border-t border-white/[0.08] flex items-center justify-between gap-2 text-xs">
-            <span className="font-mono text-white font-semibold tabular-nums">
+            <span className="text-white font-semibold tabular-nums">
               {focusCell?.ratio !== null && focusCell?.ratio !== undefined
                 ? `${focusCell.ratio.toFixed(1)}× normal`
                 : 'No data for this month'}
             </span>
-            <span className="font-mono text-zinc-300 tabular-nums">
+            <span className="text-zinc-300 tabular-nums">
               {focusCell?.hotspots !== null && focusCell?.hotspots !== undefined
                 ? `${Math.round(focusCell.hotspots).toLocaleString()} hotspots`
                 : 'Terra only'}
@@ -230,7 +230,7 @@ export function AnswerCardsGrid({
 
             <div className="hover-row-glide flex items-center justify-between px-3.5 py-2 rounded-md bg-white/[0.03] hover:bg-white/[0.06] border border-white/[0.08] text-xs">
               <span className="text-zinc-400">Ratio vs. Normal</span>
-              <span className="inline-flex items-center gap-1.5 font-mono font-semibold text-white tabular-nums">
+              <span className="inline-flex items-center gap-1.5 font-semibold text-white tabular-nums">
                 <span className={cn('w-2 h-2 rounded-[2px] shrink-0', topDotColor)} />
                 <span>
                   {topDistrict?.cell?.ratio !== null && topDistrict?.cell?.ratio !== undefined
@@ -242,7 +242,7 @@ export function AnswerCardsGrid({
 
             <div className="hover-row-glide flex items-center justify-between px-3.5 py-2 rounded-md bg-white/[0.03] hover:bg-white/[0.06] border border-white/[0.08] text-xs">
               <span className="text-zinc-400">Harmonized Hotspots</span>
-              <span className="font-mono text-zinc-200 tabular-nums">
+              <span className="text-zinc-200 tabular-nums">
                 {topDistrict?.cell?.hotspots !== null && topDistrict?.cell?.hotspots !== undefined
                   ? `${Math.round(topDistrict.cell.hotspots).toLocaleString()} pts`
                   : '—'}
@@ -252,7 +252,7 @@ export function AnswerCardsGrid({
             {activeDistrictRank && (
               <div className="hover-row-glide flex items-center justify-between px-3.5 py-2 rounded-md bg-white/[0.03] hover:bg-white/[0.06] border border-white/[0.08] text-xs">
                 <span className="text-zinc-400">Selected Rank</span>
-                <span className="font-mono text-[#A4FFF0]">
+                <span className="font-brand text-[11px] tracking-[0.06em] text-[#A4FFF0]">
                   {activeDistrictRank.rank !== null
                     ? `#${activeDistrictRank.rank} of 14`
                     : 'Low activity (<20 pts)'}

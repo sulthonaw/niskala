@@ -1,4 +1,4 @@
-import { InformationCircleIcon } from '@heroicons/react/24/outline';
+import { InformationCircleIcon } from '@heroicons/react/24/solid';
 import type { MetaData } from '../../../types/niskala';
 import { Card } from '../../../components/ui/Card';
 
@@ -25,7 +25,7 @@ export function LimitationsFooterCard({ meta }: LimitationsFooterCardProps) {
 
         <div className="flex flex-col justify-between gap-3 rounded-2xl bg-black/40 border border-white/[0.08] p-4">
           <div className="flex flex-col gap-1.5">
-            <div className="font-mono text-[11px] uppercase tracking-wider text-zinc-400">
+            <div className="font-brand text-[11px] uppercase tracking-[0.14em] text-zinc-400">
               Official Data Sources
             </div>
             <ul className="flex flex-col gap-1 text-zinc-300">

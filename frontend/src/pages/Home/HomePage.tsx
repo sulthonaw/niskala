@@ -1,4 +1,4 @@
-import { MapPinIcon } from '@heroicons/react/24/outline';
+import { MapPinIcon } from '@heroicons/react/24/solid';
 import { Button } from '../../components/ui/Button';
 import { Card } from '../../components/ui/Card';
 import { SelectDropdown } from '../../components/ui/SelectDropdown';
@@ -57,7 +57,7 @@ export function HomePage() {
 
   if (error || !dataset || !activeDistrict) {
     return (
-      <Card title="Unable to Load Telemetry Data">
+      <Card title="Unable to Load Data">
         <div className="flex flex-col items-start gap-4 py-4">
           <p className="text-sm text-zinc-300">
             Couldn&apos;t load data. Refresh the page or try again later.
@@ -78,7 +78,7 @@ export function HomePage() {
       {/* Control Header & Region Selector */}
       <section className="flex flex-col lg:flex-row lg:items-end justify-between gap-4">
         <div className="flex flex-col gap-2">
-          <div className="flex items-center gap-2.5 flex-wrap font-mono text-[11px] uppercase tracking-[0.16em]">
+          <div className="flex items-center gap-2.5 flex-wrap font-brand text-[11px] uppercase tracking-[0.14em]">
             <span className="text-[#A4FFF0]">{dataset.meta.region}</span>
             <span className="text-zinc-600">/</span>
             <span className="text-zinc-400">Focus: {formatYmLabel(focusMonth)}</span>
@@ -87,8 +87,8 @@ export function HomePage() {
             Harmonized Hotspot Anomaly Calendar
           </h1>
           <p className="text-xs sm:text-sm text-zinc-400 max-w-2xl">
-            Cross-sensor calibrated MODIS and VIIRS thermal anomaly archive (2002–2026, NOAA-20
-            equivalent) supporting provincial and district fire readiness.
+            Monthly hotspot counts on the VIIRS NOAA-20 scale compared with the 2003–2025 normal
+            for West Kalimantan and each of its 14 districts.
           </p>
         </div>
 
@@ -96,10 +96,10 @@ export function HomePage() {
         <div className="flex flex-col gap-1.5 min-w-[250px]">
           <label
             htmlFor="region-select"
-            className="text-[11px] font-mono uppercase tracking-wider text-zinc-400 flex items-center gap-1.5"
+            className="text-[11px] font-brand uppercase tracking-[0.12em] text-zinc-400 flex items-center gap-1.5"
           >
             <MapPinIcon className="w-3.5 h-3.5 text-[#A4FFF0]" />
-            <span>Area of Interest (15 Regions)</span>
+            <span>Region (15 Areas)</span>
           </label>
           <SelectDropdown
             id="region-select"
@@ -117,7 +117,7 @@ export function HomePage() {
 
       {/* Reference Case Bar */}
       <section className="flex flex-wrap items-center gap-2">
-        <span className="text-[11px] font-mono uppercase tracking-wider text-zinc-500 mr-1">
+        <span className="text-[11px] font-brand uppercase tracking-[0.12em] text-zinc-500 mr-1">
           Reference Cases:
         </span>
         {REFERENCE_CASES.map((sc) => {

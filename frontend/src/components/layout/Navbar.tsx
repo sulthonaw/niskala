@@ -1,5 +1,5 @@
-import { Link } from 'react-router-dom';
-import { CalendarDaysIcon } from '@heroicons/react/24/outline';
+import { Link, useLocation } from 'react-router-dom';
+import { BookOpenIcon } from '@heroicons/react/24/solid';
 import { GitHubIcon } from '../ui/GitHubIcon';
 import { GITHUB_REPO_URL } from '../../constants/docsSections';
 import { useNavigationLinks } from '../../hooks/useNavigationLinks';
@@ -7,9 +7,8 @@ import { cn } from '../../utils/formatters';
 
 export function Navbar() {
   const { navItems } = useNavigationLinks();
-  const isCalendarPage = navItems.some(
-    (item) => item.path === '/calendar' && item.isActive
-  );
+  const { pathname } = useLocation();
+  const isDocsPage = pathname === '/docs';
 
   return (
     <header className="fixed top-0 inset-x-0 z-50 bg-[#080a0c]/92 backdrop-blur-xl border-b border-white/[0.08]">
@@ -69,22 +68,25 @@ export function Navbar() {
               <span className="hidden lg:inline">GitHub</span>
             </a>
 
-            {!isCalendarPage && (
-              <Link
-                to="/calendar"
-                className="group hover-slide-fill [--slide-bg:rgba(255,255,255,0.28)] hidden sm:inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-md bg-[#A4FFF0] text-[#050507] text-xs font-semibold tracking-wide"
-              >
-                <CalendarDaysIcon className="w-4 h-4 stroke-[2] transition-transform duration-200 group-hover:translate-x-0.5" />
-                <span>Open Calendar</span>
-              </Link>
-            )}
+            <Link
+              to="/docs"
+              className={cn(
+                'group hover-slide-fill inline-flex items-center gap-1.5 px-2.5 sm:px-3.5 py-1.5 rounded-md text-xs font-semibold tracking-wide transition-colors',
+                isDocsPage
+                  ? 'bg-[#A4FFF0]/15 text-[#A4FFF0] border border-[#A4FFF0]/45 [--slide-bg:rgba(164,255,240,0.12)]'
+                  : 'bg-[#A4FFF0] text-[#050507] [--slide-bg:rgba(255,255,255,0.28)]'
+              )}
+            >
+              <BookOpenIcon className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5" />
+              <span>Docs</span>
+            </Link>
           </div>
         </div>
 
         {/* Mobile Unwrapped Nav Row (Active Bar Lights Up Navbar Bottom Border) */}
         <nav
           aria-label="Mobile navigation"
-          className="md:hidden flex items-center justify-between gap-2 px-4 border-t border-white/[0.06] overflow-x-auto"
+          className="md:hidden flex items-center justify-start gap-6 px-4 border-t border-white/[0.06] overflow-x-auto"
         >
           {navItems.map((item) => (
             <Link

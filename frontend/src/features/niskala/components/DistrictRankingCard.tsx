@@ -21,10 +21,12 @@ export function DistrictRankingCard({
     <Card
       title={`District Ranking · ${formatYmLabel(focusMonth)}`}
       headerAction={
-        <span className="font-mono text-[11px] text-zinc-400">≥ 20 pts threshold</span>
+        <span className="font-brand text-[10px] uppercase tracking-[0.1em] text-zinc-400">
+          ≥ 20 pts threshold
+        </span>
       }
     >
-      <div className="flex flex-col gap-1.5 max-h-[420px] xl:max-h-[min(460px,calc(100vh-12rem))] overflow-y-auto pr-1">
+      <div className="flex flex-col gap-2 max-h-[540px] overflow-y-auto pr-1">
         {rankings.map((item) => {
           const isSelected = item.district.slug === selectedSlug;
           const swatchColor =
@@ -38,14 +40,14 @@ export function DistrictRankingCard({
               type="button"
               onClick={() => onSelectRegion(item.district.slug)}
               className={cn(
-                'hover-row-glide hover-slide-fill [--slide-bg:rgba(164,255,240,0.09)] w-full text-left px-3 py-1.5 rounded-lg border cursor-pointer flex items-center justify-between gap-3',
+                'shrink-0 hover-row-glide hover-slide-fill [--slide-bg:rgba(164,255,240,0.09)] w-full text-left px-3 py-1.5 rounded-lg border cursor-pointer flex items-center justify-between gap-3',
                 isSelected
                   ? 'bg-[#A4FFF0]/12 border-[#A4FFF0]/55'
                   : 'bg-white/[0.025] border-white/[0.08] hover:border-white/[0.22]'
               )}
             >
               <div className="flex items-center gap-3 min-w-0">
-                <span className="font-mono text-xs text-zinc-400 w-6 shrink-0">
+                <span className="font-brand text-[11px] text-zinc-400 w-6 shrink-0">
                   {item.rank !== null ? `#${item.rank}` : '—'}
                 </span>
                 <span
@@ -56,7 +58,7 @@ export function DistrictRankingCard({
                   <div className="text-xs font-medium text-white truncate">
                     {item.district.name}
                   </div>
-                  <div className="text-[11px] font-mono text-zinc-400 tabular-nums">
+                  <div className="text-[11px] text-zinc-400 tabular-nums">
                     {item.cell?.hotspots !== null && item.cell?.hotspots !== undefined
                       ? `${Math.round(item.cell.hotspots).toLocaleString()} pts`
                       : 'No data'}
@@ -67,7 +69,7 @@ export function DistrictRankingCard({
 
               <span
                 className={cn(
-                  'font-mono text-xs font-semibold tabular-nums shrink-0',
+                  'text-xs font-semibold tabular-nums shrink-0',
                   item.isLowActivity ? 'text-zinc-500' : 'text-white'
                 )}
               >

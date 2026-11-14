@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, type KeyboardEvent } from 'react';
-import { CheckIcon, ChevronDownIcon } from '@heroicons/react/24/outline';
+import { CheckIcon, ChevronDownIcon } from '@heroicons/react/24/solid';
 import { cn } from '../../utils/formatters';
 
 export interface SelectOption {
@@ -114,7 +114,7 @@ export function SelectDropdown({
                   <span className="flex items-center gap-2 min-w-0">
                     <span className="truncate">{opt.label}</span>
                     {opt.hint && (
-                      <span className="font-mono text-[10px] uppercase tracking-wider px-1.5 py-0.5 rounded border border-white/[0.1] bg-white/[0.04] text-zinc-400 shrink-0">
+                      <span className="font-brand text-[10px] uppercase tracking-[0.1em] px-2 py-0.5 rounded-full border border-white/[0.1] bg-white/[0.04] text-zinc-400 shrink-0">
                         {opt.hint}
                       </span>
                     )}
