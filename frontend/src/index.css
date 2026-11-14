@@ -238,3 +238,210 @@
 ::-webkit-scrollbar-thumb:hover {
   background: rgba(164, 255, 240, 0.4);
 }
+
+/* ------------------------------------------------------------------ */
+/* Printable report (Calendar → Download report). Screen: hidden.      */
+/* Print: hide the app (#root) and show only the report, light theme.  */
+/* ------------------------------------------------------------------ */
+.niskala-print-report {
+  display: none;
+}
+
+@media print {
+  @page {
+    size: A4;
+    margin: 12mm;
+  }
+
+  html,
+  body {
+    background: #ffffff !important;
+    background-image: none !important;
+  }
+
+  #root {
+    display: none !important;
+  }
+
+  .niskala-print-report {
+    display: block;
+    color: #111111;
+    font-family: var(--font-sans);
+    font-size: 10px;
+    line-height: 1.45;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .niskala-print-report h1 {
+    font-size: 20px;
+    font-weight: 600;
+    margin: 2px 0;
+  }
+
+  .niskala-print-report h2 {
+    font-size: 11px;
+    font-weight: 600;
+    margin: 14px 0 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  .niskala-print-report p {
+    margin: 0 0 4px;
+  }
+
+  .niskala-print-report ul {
+    margin: 0 0 6px;
+    padding-left: 14px;
+    list-style: disc;
+  }
+
+  .npr-header {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #111111;
+  }
+
+  .npr-eyebrow,
+  .npr-label {
+    font-family: var(--font-mono);
+    font-size: 8.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: #555555;
+  }
+
+  .npr-meta {
+    text-align: right;
+    font-family: var(--font-mono);
+    font-size: 8.5px;
+    color: #555555;
+  }
+
+  .npr-muted {
+    color: #555555;
+    font-size: 9px;
+  }
+
+  .npr-answers {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin-top: 10px;
+  }
+
+  .npr-answers > div {
+    border: 1px solid #cccccc;
+    border-radius: 6px;
+    padding: 6px 8px;
+  }
+
+  .npr-value {
+    font-size: 11px;
+    font-weight: 600;
+    margin-top: 2px;
+  }
+
+  .npr-calendar {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 2px;
+    table-layout: fixed;
+  }
+
+  .npr-calendar th {
+    font-family: var(--font-mono);
+    font-size: 8px;
+    font-weight: 500;
+    color: #555555;
+  }
+
+  .npr-calendar tbody th {
+    text-align: right;
+    padding-right: 4px;
+    width: 34px;
+  }
+
+  .npr-calendar td {
+    height: 13px;
+    text-align: center;
+    font-family: var(--font-mono);
+    font-size: 7.5px;
+    border-radius: 2px;
+  }
+
+  .npr-calendar td.npr-empty {
+    background: transparent;
+  }
+
+  .npr-nodata {
+    background: repeating-linear-gradient(45deg, #d4d4d8 0, #d4d4d8 2px, #f4f4f5 2px, #f4f4f5 4px);
+    color: #71717a;
+  }
+
+  .npr-calendar td.npr-partial {
+    outline: 1px dashed #111111;
+    outline-offset: -1px;
+  }
+
+  .npr-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 6px;
+    font-size: 8.5px;
+    color: #333333;
+  }
+
+  .npr-legend span {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .npr-legend i {
+    display: inline-block;
+    width: 9px;
+    height: 9px;
+    border-radius: 2px;
+    border: 1px solid #bbbbbb;
+  }
+
+  .npr-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .npr-table th,
+  .npr-table td {
+    border-bottom: 1px solid #dddddd;
+    padding: 2px 6px;
+    text-align: right;
+  }
+
+  .npr-table th:first-child,
+  .npr-table td:first-child {
+    text-align: left;
+  }
+
+  .npr-table th {
+    font-family: var(--font-mono);
+    font-size: 8px;
+    font-weight: 500;
+    color: #555555;
+    text-transform: uppercase;
+  }
+
+  .npr-two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .npr-avoid-break {
+    break-inside: avoid;
+  }
+}

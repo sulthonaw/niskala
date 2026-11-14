@@ -6,6 +6,8 @@ import { AnomalyCalendarCard } from '../../features/niskala/components/AnomalyCa
 import { AnswerCardsGrid } from '../../features/niskala/components/AnswerCardsGrid';
 import { DistrictRankingCard } from '../../features/niskala/components/DistrictRankingCard';
 import { LimitationsFooterCard } from '../../features/niskala/components/LimitationsFooterCard';
+import { PrintableReport } from '../../features/niskala/components/PrintableReport';
+import { RangeExportBar } from '../../features/niskala/components/RangeExportBar';
 import { ValidationRow } from '../../features/niskala/components/ValidationRow';
 import { useNiskalaData } from '../../hooks/useNiskalaData';
 import { formatYmLabel } from '../../services/niskalaDataService';
@@ -25,6 +27,8 @@ export function HomePage() {
     reload,
     regionSlug,
     focusMonth,
+    fromYm,
+    toYm,
     activeDistrict,
     regionCells,
     focusCell,
@@ -36,6 +40,7 @@ export function HomePage() {
     setRegion,
     setFocusMonth,
     setScenario,
+    setRange,
   } = useNiskalaData();
 
   if (loading) {
@@ -72,6 +77,21 @@ export function HomePage() {
   }
 
   const topDistrict = districtRanking[0] ?? null;
+
+  const provinceCells = dataset.calendarBySlug['kalimantan-barat'] ?? regionCells;
+  const minYm = provinceCells[0]?.ym ?? '2001-01';
+  const maxYm = provinceCells[provinceCells.length - 1]?.ym ?? '2026-11';
+
+  const handlePrintReport = () => {
+    const previousTitle = document.title;
+    document.title = `niskala_${activeDistrict.slug}_${fromYm}_${toYm}_report`;
+    const restore = () => {
+      document.title = previousTitle;
+      window.removeEventListener('afterprint', restore);
+    };
+    window.addEventListener('afterprint', restore);
+    window.print();
+  };
 
   return (
     <div className="flex flex-col gap-6">
@@ -139,6 +159,19 @@ export function HomePage() {
         })}
       </section>
 
+      {/* Date Range & Export (CSV, monthly summary, printable report) */}
+      <RangeExportBar
+        fromYm={fromYm}
+        toYm={toYm}
+        minYm={minYm}
+        maxYm={maxYm}
+        activeDistrict={activeDistrict}
+        districts={dataset.meta.districts}
+        rangeCells={regionCells}
+        onChangeRange={setRange}
+        onPrintReport={handlePrintReport}
+      />
+
       {/* 3 Answer Cards (When / How Bad / Where) */}
       <AnswerCardsGrid
         activeDistrict={activeDistrict}
@@ -181,6 +214,19 @@ export function HomePage() {
 
       {/* Limitations & Sources */}
       <LimitationsFooterCard meta={dataset.meta} />
+
+      {/* Print-only report (shown by window.print via index.css) */}
+      <PrintableReport
+        meta={dataset.meta}
+        activeDistrict={activeDistrict}
+        fromYm={fromYm}
+        toYm={toYm}
+        focusMonth={focusMonth}
+        focusCell={focusCell}
+        rangeCells={regionCells}
+        topDistrict={topDistrict}
+        sipongiSeries={sipongiSeries}
+      />
     </div>
   );
 }

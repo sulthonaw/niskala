@@ -87,6 +87,18 @@ export function useNiskalaData() {
     [searchParams, setSearchParams]
   );
 
+  const setRange = useCallback(
+    (nextFrom: string, nextTo: string) => {
+      const next = new URLSearchParams(searchParams);
+      if (!next.get('region')) next.set('region', regionSlug);
+      if (!next.get('focus')) next.set('focus', focusMonth);
+      next.set('from', nextFrom);
+      next.set('to', nextTo);
+      setSearchParams(next, { replace: true });
+    },
+    [focusMonth, regionSlug, searchParams, setSearchParams]
+  );
+
   const activeDistrict = useMemo<DistrictMeta | null>(() => {
     if (!dataset) return null;
     return (
@@ -160,5 +172,6 @@ export function useNiskalaData() {
     setRegion,
     setFocusMonth,
     setScenario,
+    setRange,
   };
 }
