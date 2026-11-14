@@ -1,0 +1,22 @@
+latitude,longitude,acq_date_utc,acq_time_utc,local_datetime_wib,satellite,sensor,confidence,frp,daynight,data_type,district
+0.9312,109.0122,2004-02-26,0340,2004-02-26 10:40,Terra,MODIS,40,19.1,D,standard,Kota Singkawang
+0.9282,109.0326,2004-02-26,0340,2004-02-26 10:40,Terra,MODIS,67,27.4,D,standard,Kota Singkawang
+0.9064,108.9888,2004-04-07,0333,2004-04-07 10:33,Terra,MODIS,53,14.6,D,standard,Kota Singkawang
+0.9291,109.0434,2004-06-17,0635,2004-06-17 13:35,Aqua,MODIS,74,23.4,D,standard,Kota Singkawang
+0.7835,108.9856,2004-06-22,0653,2004-06-22 13:53,Aqua,MODIS,49,45.1,D,standard,Kota Singkawang
+0.7896,108.98,2004-06-22,0653,2004-06-22 13:53,Aqua,MODIS,56,52.9,D,standard,Kota Singkawang
+0.9031,109.0142,2004-06-23,0558,2004-06-23 12:58,Aqua,MODIS,74,21.2,D,standard,Kota Singkawang
+0.797,108.9912,2004-06-23,0558,2004-06-23 12:58,Aqua,MODIS,71,19.2,D,standard,Kota Singkawang
+0.9501,109.0858,2004-06-30,0604,2004-06-30 13:04,Aqua,MODIS,70,10.2,D,standard,Kota Singkawang
+0.952,109.0902,2004-06-30,0604,2004-06-30 13:04,Aqua,MODIS,70,10.6,D,standard,Kota Singkawang
+0.8073,108.9834,2004-08-04,0635,2004-08-04 13:35,Aqua,MODIS,62,10.3,D,standard,Kota Singkawang
+0.787,108.9863,2004-08-08,0315,2004-08-08 10:15,Terra,MODIS,63,6.1,D,standard,Kota Singkawang
+0.9759,109.1512,2004-08-11,0641,2004-08-11 13:41,Aqua,MODIS,62,21.2,D,standard,Kota Singkawang
+0.8877,109.048,2004-08-15,0616,2004-08-15 13:16,Aqua,MODIS,71,14.0,D,standard,Kota Singkawang
+0.9307,109.0838,2004-08-19,0552,2004-08-19 12:52,Aqua,MODIS,58,16.0,D,standard,Kota Singkawang
+0.9308,109.089,2004-08-19,0552,2004-08-19 12:52,Aqua,MODIS,48,12.3,D,standard,Kota Singkawang
+0.85,109.0199,2004-08-22,0623,2004-08-22 13:23,Aqua,MODIS,47,9.5,D,standard,Kota Singkawang
+0.8111,108.9754,2004-08-26,0302,2004-08-26 10:02,Terra,MODIS,59,7.5,D,standard,Kota Singkawang
+0.779,108.9759,2004-08-26,0302,2004-08-26 10:02,Terra,MODIS,71,12.3,D,standard,Kota Singkawang
+0.8112,108.969,2004-08-26,0558,2004-08-26 12:58,Aqua,MODIS,54,13.1,D,standard,Kota Singkawang
+0.8124,108.977,2004-08-26,0558,2004-08-26 12:58,Aqua,MODIS,67,15.2,D,standard,Kota Singkawang

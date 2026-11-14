@@ -1,0 +1,10 @@
+latitude,longitude,acq_date_utc,acq_time_utc,local_datetime_wib,satellite,sensor,confidence,frp,daynight,data_type,district
+0.9305,109.0853,2021-04-03,0600,2021-04-03 13:00,Aqua,MODIS,45,10.1,D,standard,Kota Singkawang
+0.93002,109.09193,2021-04-03,0612,2021-04-03 13:12,N20,VIIRS,n,5.0,D,standard,Kota Singkawang
+0.89978,109.07145,2021-04-08,0618,2021-04-08 13:18,N20,VIIRS,n,4.01,D,standard,Kota Singkawang
+0.85226,108.95033,2021-07-04,0547,2021-07-04 12:47,N20,VIIRS,n,3.54,D,standard,Kota Singkawang
+0.9358,109.06351,2021-07-24,0612,2021-07-24 13:12,N20,VIIRS,n,4.55,D,standard,Kota Singkawang
+0.97434,109.10074,2021-07-24,0612,2021-07-24 13:12,N20,VIIRS,n,6.46,D,standard,Kota Singkawang
+0.88482,109.10586,2021-08-25,0612,2021-08-25 13:12,N20,VIIRS,n,2.87,D,standard,Kota Singkawang
+0.94094,109.05212,2021-10-12,0612,2021-10-12 13:12,N20,VIIRS,n,3.06,D,standard,Kota Singkawang
+0.94041,109.04858,2021-10-12,0612,2021-10-12 13:12,N20,VIIRS,n,2.85,D,standard,Kota Singkawang

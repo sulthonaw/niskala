@@ -1,0 +1,2 @@
+latitude,longitude,acq_date_utc,acq_time_utc,local_datetime_wib,satellite,sensor,confidence,frp,daynight,data_type,district
+0.03305,109.32722,2023-07-29,0632,2023-07-29 13:32,N20,VIIRS,n,3.45,D,standard,Kota Pontianak

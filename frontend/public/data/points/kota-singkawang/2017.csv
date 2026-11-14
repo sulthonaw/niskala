@@ -1,0 +1,10 @@
+latitude,longitude,acq_date_utc,acq_time_utc,local_datetime_wib,satellite,sensor,confidence,frp,daynight,data_type,district
+0.9095,108.9878,2017-07-31,0251,2017-07-31 09:51,Terra,MODIS,63,15.1,D,standard,Kota Singkawang
+0.9081,108.9841,2017-09-15,0303,2017-09-15 10:03,Terra,MODIS,40,10.7,D,standard,Kota Singkawang
+0.879,109.0994,2017-09-20,0618,2017-09-20 13:18,Aqua,MODIS,79,16.9,D,standard,Kota Singkawang
+0.8803,109.1083,2017-09-20,0618,2017-09-20 13:18,Aqua,MODIS,89,33.9,D,standard,Kota Singkawang
+0.9118,108.9965,2017-10-02,0346,2017-10-02 10:46,Terra,MODIS,34,27.8,D,standard,Kota Singkawang
+0.9049,108.989,2017-11-23,0322,2017-11-23 10:22,Terra,MODIS,30,8.9,D,standard,Kota Singkawang
+0.9087,108.9907,2017-12-06,0251,2017-12-06 09:51,Terra,MODIS,44,17.6,D,standard,Kota Singkawang
+0.9075,108.9837,2017-12-06,0251,2017-12-06 09:51,Terra,MODIS,37,16.3,D,standard,Kota Singkawang
+0.899,108.9838,2017-12-06,0548,2017-12-06 12:48,Aqua,MODIS,52,22.8,D,standard,Kota Singkawang

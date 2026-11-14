@@ -1,0 +1,4 @@
+latitude,longitude,acq_date_utc,acq_time_utc,local_datetime_wib,satellite,sensor,confidence,frp,daynight,data_type,district
+-0.0362,109.3412,2001-01-27,0334,2001-01-27 10:34,Terra,MODIS,43,8.2,D,standard,Kota Pontianak
+0.0149,109.3155,2001-07-15,0323,2001-07-15 10:23,Terra,MODIS,35,6.9,D,standard,Kota Pontianak
+-0.0162,109.3226,2001-11-09,0338,2001-11-09 10:38,Terra,MODIS,33,15.5,D,standard,Kota Pontianak

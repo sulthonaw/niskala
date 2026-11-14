@@ -1,0 +1,7 @@
+latitude,longitude,acq_date_utc,acq_time_utc,local_datetime_wib,satellite,sensor,confidence,frp,daynight,data_type,district
+-0.03061,109.34088,2025-01-18,0558,2025-01-18 12:58,N20,VIIRS,n,8.57,D,standard,Kota Pontianak
+-0.0751,109.3519,2025-04-05,0217,2025-04-05 09:17,Terra,MODIS,49,10.3,D,standard,Kota Pontianak
+-0.08782,109.33176,2025-07-01,0623,2025-07-01 13:23,N20,VIIRS,n,4.93,D,standard,Kota Pontianak
+-0.08597,109.32986,2025-07-25,0534,2025-07-25 12:34,N20,VIIRS,n,5.25,D,standard,Kota Pontianak
+0.01774,109.30264,2025-07-26,1756,2025-07-27 00:56,N20,VIIRS,n,2.51,N,standard,Kota Pontianak
+-0.08408,109.32829,2025-07-26,1756,2025-07-27 00:56,N20,VIIRS,n,1.57,N,standard,Kota Pontianak

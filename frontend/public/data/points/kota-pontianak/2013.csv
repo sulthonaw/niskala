@@ -1,0 +1,6 @@
+latitude,longitude,acq_date_utc,acq_time_utc,local_datetime_wib,satellite,sensor,confidence,frp,daynight,data_type,district
+0.0266,109.3443,2013-01-30,0606,2013-01-30 13:06,Aqua,MODIS,86,33.0,D,standard,Kota Pontianak
+0.025,109.3332,2013-01-30,0606,2013-01-30 13:06,Aqua,MODIS,85,31.6,D,standard,Kota Pontianak
+0.0137,109.3353,2013-03-15,0631,2013-03-15 13:31,Aqua,MODIS,62,10.4,D,standard,Kota Pontianak
+-0.0306,109.3381,2013-04-02,0619,2013-04-02 13:19,Aqua,MODIS,50,11.3,D,standard,Kota Pontianak
+-0.0788,109.3398,2013-06-26,0637,2013-06-26 13:37,Aqua,MODIS,69,14.3,D,standard,Kota Pontianak

@@ -1,0 +1,17 @@
+latitude,longitude,acq_date_utc,acq_time_utc,local_datetime_wib,satellite,sensor,confidence,frp,daynight,data_type,district
+0.02526,109.35322,2019-03-13,0612,2019-03-13 13:12,N20,VIIRS,n,6.01,D,standard,Kota Pontianak
+0.01013,109.31897,2019-03-18,0618,2019-03-18 13:18,N20,VIIRS,n,3.07,D,standard,Kota Pontianak
+-0.07647,109.32569,2019-03-20,0541,2019-03-20 12:41,N20,VIIRS,n,1.91,D,standard,Kota Pontianak
+0.02788,109.30374,2019-04-07,0643,2019-04-07 13:43,N20,VIIRS,n,4.4,D,standard,Kota Pontianak
+0.02233,109.31351,2019-04-07,1744,2019-04-08 00:44,N20,VIIRS,n,0.84,N,standard,Kota Pontianak
+0.02629,109.34496,2019-05-11,0606,2019-05-11 13:06,N20,VIIRS,n,8.29,D,standard,Kota Pontianak
+0.00911,109.3212,2019-08-14,0624,2019-08-14 13:24,N20,VIIRS,n,7.56,D,standard,Kota Pontianak
+-0.08216,109.3264,2019-08-21,0552,2019-08-21 12:52,N20,VIIRS,n,9.36,D,standard,Kota Pontianak
+0.0101,109.35995,2019-09-06,0552,2019-09-06 12:52,N20,VIIRS,n,6.43,D,standard,Kota Pontianak
+0.0272,109.3331,2019-09-06,0642,2019-09-06 13:42,Aqua,MODIS,74,40.3,D,standard,Kota Pontianak
+0.02161,109.30234,2019-09-12,1820,2019-09-13 01:20,N20,VIIRS,n,3.02,N,standard,Kota Pontianak
+0.02398,109.30281,2019-09-13,1801,2019-09-14 01:01,N20,VIIRS,n,1.05,N,standard,Kota Pontianak
+0.02062,109.30229,2019-09-13,1801,2019-09-14 01:01,N20,VIIRS,n,1.05,N,standard,Kota Pontianak
+0.01114,109.36279,2019-09-13,1801,2019-09-14 01:01,N20,VIIRS,n,0.64,N,standard,Kota Pontianak
+-0.05445,109.36486,2019-11-25,0552,2019-11-25 12:52,N20,VIIRS,n,5.38,D,standard,Kota Pontianak
+-0.085,109.3484,2019-12-15,0321,2019-12-15 10:21,Terra,MODIS,36,7.0,D,standard,Kota Pontianak

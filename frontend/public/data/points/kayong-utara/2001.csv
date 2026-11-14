@@ -1,0 +1,10 @@
+latitude,longitude,acq_date_utc,acq_time_utc,local_datetime_wib,satellite,sensor,confidence,frp,daynight,data_type,district
+-1.0164,109.9876,2001-07-10,0305,2001-07-10 10:05,Terra,MODIS,66,10.1,D,standard,Kayong Utara
+-0.9052,109.9213,2001-07-13,0336,2001-07-13 10:36,Terra,MODIS,54,9.1,D,standard,Kayong Utara
+-1.0622,109.8407,2001-08-14,0336,2001-08-14 10:36,Terra,MODIS,63,10.6,D,standard,Kayong Utara
+-0.9186,109.8827,2001-08-20,1520,2001-08-20 22:20,Terra,MODIS,80,8.8,N,standard,Kayong Utara
+-0.9588,109.8078,2001-08-23,0329,2001-08-23 10:29,Terra,MODIS,32,7.9,D,standard,Kayong Utara
+-1.0466,109.7077,2001-08-23,0329,2001-08-23 10:29,Terra,MODIS,66,9.1,D,standard,Kayong Utara
+-0.9743,110.2284,2001-08-24,0234,2001-08-24 09:34,Terra,MODIS,60,50.4,D,standard,Kayong Utara
+-0.9753,110.2223,2001-08-24,0234,2001-08-24 09:34,Terra,MODIS,64,61.9,D,standard,Kayong Utara
+-1.2584,110.0072,2001-08-25,0317,2001-08-25 10:17,Terra,MODIS,80,16.7,D,standard,Kayong Utara

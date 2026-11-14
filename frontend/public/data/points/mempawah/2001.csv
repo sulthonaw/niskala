@@ -1,0 +1,15 @@
+latitude,longitude,acq_date_utc,acq_time_utc,local_datetime_wib,satellite,sensor,confidence,frp,daynight,data_type,district
+0.3197,109.0707,2001-03-18,0320,2001-03-18 10:20,Terra,MODIS,60,7.2,D,standard,Mempawah
+0.1346,109.2647,2001-03-18,0320,2001-03-18 10:20,Terra,MODIS,90,35.3,D,standard,Mempawah
+0.348,109.0188,2001-03-23,0338,2001-03-23 10:38,Terra,MODIS,71,15.2,D,standard,Mempawah
+0.1275,109.2646,2001-03-23,0338,2001-03-23 10:38,Terra,MODIS,67,20.3,D,standard,Mempawah
+0.3372,109.0432,2001-07-04,0342,2001-07-04 10:42,Terra,MODIS,36,14.8,D,standard,Mempawah
+0.1114,109.26,2001-07-13,0336,2001-07-13 10:36,Terra,MODIS,47,13.9,D,standard,Mempawah
+0.1071,109.2516,2001-07-15,0323,2001-07-15 10:23,Terra,MODIS,69,8.3,D,standard,Mempawah
+0.0773,109.2659,2001-07-15,0323,2001-07-15 10:23,Terra,MODIS,53,7.1,D,standard,Mempawah
+0.5953,109.1561,2001-07-18,0354,2001-07-18 10:54,Terra,MODIS,69,71.5,D,standard,Mempawah
+0.5912,109.1842,2001-07-18,0354,2001-07-18 10:54,Terra,MODIS,51,43.5,D,standard,Mempawah
+0.3399,109.0412,2001-07-19,0259,2001-07-19 09:59,Terra,MODIS,59,13.1,D,standard,Mempawah
+0.1632,109.2445,2001-07-22,0330,2001-07-22 10:30,Terra,MODIS,58,9.3,D,standard,Mempawah
+0.1334,109.2598,2001-08-14,0335,2001-08-14 10:35,Terra,MODIS,48,8.0,D,standard,Mempawah
+0.1324,109.2543,2001-08-25,0317,2001-08-25 10:17,Terra,MODIS,66,7.6,D,standard,Mempawah

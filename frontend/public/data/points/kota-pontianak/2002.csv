@@ -1,0 +1,14 @@
+latitude,longitude,acq_date_utc,acq_time_utc,local_datetime_wib,satellite,sensor,confidence,frp,daynight,data_type,district
+-0.0429,109.3404,2002-07-06,0253,2002-07-06 09:53,Terra,MODIS,56,18.2,D,standard,Kota Pontianak
+-0.0498,109.3335,2002-07-06,0253,2002-07-06 09:53,Terra,MODIS,56,15.8,D,standard,Kota Pontianak
+0.0249,109.3455,2002-07-14,0342,2002-07-14 10:42,Terra,MODIS,32,19.2,D,standard,Kota Pontianak
+-0.051,109.3343,2002-07-15,1801,2002-07-16 01:01,Aqua,MODIS,89,20.9,N,standard,Kota Pontianak
+0.018,109.3493,2002-08-12,0604,2002-08-12 13:04,Aqua,MODIS,39,10.0,D,standard,Kota Pontianak
+0.0181,109.3534,2002-08-14,0552,2002-08-14 12:52,Aqua,MODIS,56,27.4,D,standard,Kota Pontianak
+0.0192,109.347,2002-08-14,0552,2002-08-14 12:52,Aqua,MODIS,48,24.6,D,standard,Kota Pontianak
+-0.0852,109.3384,2002-08-15,0635,2002-08-15 13:35,Aqua,MODIS,54,18.3,D,standard,Kota Pontianak
+-0.0812,109.3273,2002-08-17,0622,2002-08-17 13:22,Aqua,MODIS,70,13.3,D,standard,Kota Pontianak
+0.0213,109.3242,2002-08-19,0610,2002-08-19 13:10,Aqua,MODIS,72,18.4,D,standard,Kota Pontianak
+-0.0864,109.3325,2002-08-19,0610,2002-08-19 13:10,Aqua,MODIS,73,14.5,D,standard,Kota Pontianak
+0.0278,109.3039,2002-08-19,0610,2002-08-19 13:10,Aqua,MODIS,30,13.7,D,standard,Kota Pontianak
+0.0227,109.3337,2002-08-19,0610,2002-08-19 13:10,Aqua,MODIS,54,13.7,D,standard,Kota Pontianak

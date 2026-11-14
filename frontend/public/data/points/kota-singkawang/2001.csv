@@ -1,0 +1,3 @@
+latitude,longitude,acq_date_utc,acq_time_utc,local_datetime_wib,satellite,sensor,confidence,frp,daynight,data_type,district
+0.9074,108.993,2001-03-28,0356,2001-03-28 10:56,Terra,MODIS,37,28.5,D,standard,Kota Singkawang
+0.9074,108.9916,2001-06-04,0330,2001-06-04 10:30,Terra,MODIS,45,9.5,D,standard,Kota Singkawang

@@ -1,0 +1,5 @@
+latitude,longitude,acq_date_utc,acq_time_utc,local_datetime_wib,satellite,sensor,confidence,frp,daynight,data_type,district
+0.95143,109.06687,2020-01-25,0650,2020-01-25 13:50,N20,VIIRS,n,3.0,D,standard,Kota Singkawang
+0.78499,109.02459,2020-05-07,0619,2020-05-07 13:19,N20,VIIRS,n,2.6,D,standard,Kota Singkawang
+0.81677,109.00715,2020-08-11,0618,2020-08-11 13:18,N20,VIIRS,n,4.66,D,standard,Kota Singkawang
+0.92529,109.08687,2020-10-30,0618,2020-10-30 13:18,N20,VIIRS,n,15.81,D,standard,Kota Singkawang

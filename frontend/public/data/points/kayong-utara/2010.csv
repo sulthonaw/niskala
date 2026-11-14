@@ -1,0 +1,22 @@
+latitude,longitude,acq_date_utc,acq_time_utc,local_datetime_wib,satellite,sensor,confidence,frp,daynight,data_type,district
+-1.0376,110.0832,2010-01-24,0556,2010-01-24 12:56,Aqua,MODIS,50,14.3,D,standard,Kayong Utara
+-1.0452,110.0794,2010-01-24,0556,2010-01-24 12:56,Aqua,MODIS,57,18.0,D,standard,Kayong Utara
+-1.1322,109.4907,2010-02-05,0620,2010-02-05 13:20,Aqua,MODIS,56,5.8,D,standard,Kayong Utara
+-0.8271,110.0093,2010-05-03,0328,2010-05-03 10:28,Terra,MODIS,64,11.5,D,standard,Kayong Utara
+-1.1504,109.9772,2010-06-06,0613,2010-06-06 13:13,Aqua,MODIS,74,10.9,D,standard,Kayong Utara
+-1.1329,109.7475,2010-06-22,0613,2010-06-22 13:13,Aqua,MODIS,69,9.1,D,standard,Kayong Utara
+-0.9131,109.8793,2010-08-09,0612,2010-08-09 13:12,Aqua,MODIS,65,12.9,D,standard,Kayong Utara
+-1.1651,110.4149,2010-09-19,0606,2010-09-19 13:06,Aqua,MODIS,52,7.1,D,standard,Kayong Utara
+-1.1688,110.4562,2010-09-19,0606,2010-09-19 13:06,Aqua,MODIS,76,18.4,D,standard,Kayong Utara
+-1.2123,110.4324,2010-09-26,0612,2010-09-26 13:12,Aqua,MODIS,65,6.5,D,standard,Kayong Utara
+-1.1483,110.4258,2010-09-26,0612,2010-09-26 13:12,Aqua,MODIS,61,5.6,D,standard,Kayong Utara
+-0.9809,110.3481,2010-10-12,0612,2010-10-12 13:12,Aqua,MODIS,31,7.1,D,standard,Kayong Utara
+-1.1344,109.9877,2010-10-12,0612,2010-10-12 13:12,Aqua,MODIS,71,10.6,D,standard,Kayong Utara
+-0.8792,110.2912,2010-10-12,0612,2010-10-12 13:12,Aqua,MODIS,62,7.2,D,standard,Kayong Utara
+-0.8754,110.318,2010-10-12,0612,2010-10-12 13:12,Aqua,MODIS,54,9.1,D,standard,Kayong Utara
+-0.9436,110.2876,2010-10-12,0612,2010-10-12 13:12,Aqua,MODIS,80,18.9,D,standard,Kayong Utara
+-0.9616,110.3545,2010-10-12,0612,2010-10-12 13:12,Aqua,MODIS,72,22.7,D,standard,Kayong Utara
+-1.1453,110.4205,2010-10-12,0612,2010-10-12 13:12,Aqua,MODIS,90,39.4,D,standard,Kayong Utara
+-1.1248,110.3072,2010-10-12,0612,2010-10-12 13:12,Aqua,MODIS,84,23.2,D,standard,Kayong Utara
+-1.018,110.3506,2010-10-12,0612,2010-10-12 13:12,Aqua,MODIS,93,73.3,D,standard,Kayong Utara
+-1.0262,109.8963,2010-11-04,0618,2010-11-04 13:18,Aqua,MODIS,53,5.0,D,standard,Kayong Utara
