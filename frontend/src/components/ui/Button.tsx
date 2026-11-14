@@ -8,6 +8,23 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode;
 }
 
+const variantStyles: Record<string, string> = {
+  primary:
+    'bg-blue-600 hover:bg-blue-700 text-white shadow-xs focus-visible:outline-blue-600',
+  secondary:
+    'bg-slate-100 hover:bg-slate-200 text-slate-800 dark:bg-slate-800 dark:hover:bg-slate-700 dark:text-slate-100',
+  outline:
+    'border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800/60',
+  ghost:
+    'text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800',
+};
+
+const sizeStyles: Record<string, string> = {
+  sm: 'text-xs px-2.5 py-1.5 rounded-md gap-1.5',
+  md: 'text-sm px-3.5 py-2 rounded-lg gap-2',
+  lg: 'text-base px-5 py-2.5 rounded-xl gap-2.5',
+};
+
 export function Button({
   variant = 'primary',
   size = 'md',
@@ -15,62 +32,19 @@ export function Button({
   rightIcon,
   children,
   className = '',
-  style,
   disabled,
   ...props
 }: ButtonProps) {
-  const baseStyles: React.CSSProperties = {
-    display: 'inline-flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: '0.5rem',
-    borderRadius: 'var(--radius-md)',
-    fontWeight: 500,
-    fontSize: size === 'sm' ? '0.875rem' : size === 'lg' ? '1.125rem' : '1rem',
-    padding:
-      size === 'sm'
-        ? '0.375rem 0.75rem'
-        : size === 'lg'
-          ? '0.75rem 1.5rem'
-          : '0.5rem 1rem',
-    border: '1px solid transparent',
-    transition: 'all 0.15s ease-in-out',
-    opacity: disabled ? 0.6 : 1,
-    cursor: disabled ? 'not-allowed' : 'pointer',
-    ...style,
-  };
-
-  const variantStyles: Record<string, React.CSSProperties> = {
-    primary: {
-      backgroundColor: 'var(--primary)',
-      color: '#ffffff',
-    },
-    secondary: {
-      backgroundColor: 'var(--bg-tertiary)',
-      color: 'var(--text-primary)',
-    },
-    outline: {
-      backgroundColor: 'transparent',
-      borderColor: 'var(--border-color)',
-      color: 'var(--text-primary)',
-    },
-    ghost: {
-      backgroundColor: 'transparent',
-      color: 'var(--text-secondary)',
-    },
-  };
-
   return (
     <button
       type="button"
       disabled={disabled}
-      style={{ ...baseStyles, ...variantStyles[variant] }}
-      className={`ui-button ui-button--${variant} ${className}`}
+      className={`inline-flex items-center justify-center font-medium transition-all duration-150 select-none cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed focus-visible:outline-2 focus-visible:outline-offset-2 ${sizeStyles[size]} ${variantStyles[variant]} ${className}`}
       {...props}
     >
-      {leftIcon && <span style={{ display: 'inline-flex', width: '1.25rem', height: '1.25rem' }}>{leftIcon}</span>}
+      {leftIcon && <span className="inline-flex shrink-0 w-4 h-4">{leftIcon}</span>}
       <span>{children}</span>
-      {rightIcon && <span style={{ display: 'inline-flex', width: '1.25rem', height: '1.25rem' }}>{rightIcon}</span>}
+      {rightIcon && <span className="inline-flex shrink-0 w-4 h-4">{rightIcon}</span>}
     </button>
   );
 }

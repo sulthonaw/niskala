@@ -2,66 +2,53 @@ import {
   CodeBracketIcon,
   CpuChipIcon,
   FolderIcon,
-  InformationCircleIcon,
+  SparklesIcon,
 } from '@heroicons/react/24/outline';
 import { Card } from '../../components/ui/Card';
 
 export function AboutPage() {
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+    <div className="flex flex-col gap-8">
       <header>
-        <h1
-          style={{
-            fontSize: '2rem',
-            fontWeight: 700,
-            marginBottom: '0.5rem',
-            color: 'var(--text-primary)',
-          }}
-        >
+        <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-slate-900 dark:text-slate-100 mb-2">
           Arsitektur Frontend
         </h1>
-        <p style={{ color: 'var(--text-secondary)' }}>
-          Dokumentasi pembagian tanggung jawab antara UI, Logic, dan Routing.
+        <p className="text-slate-600 dark:text-slate-400 text-sm sm:text-base">
+          Dokumentasi pembagian tanggung jawab antara UI, Logic, Routing, dan Styling Tailwind CSS v4.
         </p>
       </header>
 
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-          gap: '1.5rem',
-        }}
-      >
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <Card
           title="1. UI Layer (src/components/ui/)"
           subtitle="Presentational Components"
-          icon={<FolderIcon style={{ width: '1.25rem', height: '1.25rem' }} />}
+          icon={<FolderIcon className="w-5 h-5" />}
         >
-          <p style={{ fontSize: '0.925rem', color: 'var(--text-secondary)', lineHeight: 1.6 }}>
+          <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
             Komponen murni (dumb components) seperti <code>Button</code>, <code>Card</code>, dan{' '}
-            <code>Badge</code>. Komponen-komponen ini tidak memiliki business logic ataupun
-            side-effects, hanya menerima props dan render visual secara konsisten.
+            <code>Badge</code>. Menggunakan utility classes Tailwind CSS v4, tidak memuat business
+            logic, dan hanya menerima props.
           </p>
         </Card>
 
         <Card
           title="2. Logic Layer (src/hooks/)"
           subtitle="Business Rules & State"
-          icon={<CpuChipIcon style={{ width: '1.25rem', height: '1.25rem' }} />}
+          icon={<CpuChipIcon className="w-5 h-5" />}
         >
-          <p style={{ fontSize: '0.925rem', color: 'var(--text-secondary)', lineHeight: 1.6 }}>
+          <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
             Seluruh state management, kalkulasi, validasi, dan API call diisolasi ke dalam custom
-            hooks (contoh: <code>useCounter</code>, <code>useNavigationLinks</code>). Kode logika
-            dapat diuji (unit tested) secara independen tanpa ketergantungan DOM.
+            hooks (seperti <code>useCounter</code>, <code>useNavigationLinks</code>) sehingga dapat
+            diuji secara mandiri tanpa ketergantungan UI.
           </p>
         </Card>
 
         <Card
           title="3. Routing Layer (src/routes/)"
           subtitle="Pohon Navigasi Terpusat"
-          icon={<CodeBracketIcon style={{ width: '1.25rem', height: '1.25rem' }} />}
+          icon={<CodeBracketIcon className="w-5 h-5" />}
         >
-          <p style={{ fontSize: '0.925rem', color: 'var(--text-secondary)', lineHeight: 1.6 }}>
+          <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
             Konfigurasi rute diatur secara deklaratif melalui <code>react-router-dom</code> di dalam{' '}
             <code>src/routes/AppRoutes.tsx</code>, membungkus setiap halaman dengan{' '}
             <code>MainLayout</code> dan menyediakan fallback 404 otomatis.
@@ -69,14 +56,14 @@ export function AboutPage() {
         </Card>
 
         <Card
-          title="4. Tipografi & Ikon"
-          subtitle="Google Sans & Heroicons"
-          icon={<InformationCircleIcon style={{ width: '1.25rem', height: '1.25rem' }} />}
+          title="4. Styling & Tipografi"
+          subtitle="Tailwind CSS v4 & Google Sans"
+          icon={<SparklesIcon className="w-5 h-5" />}
         >
-          <p style={{ fontSize: '0.925rem', color: 'var(--text-secondary)', lineHeight: 1.6 }}>
-            Tipografi menggunakan <strong>Google Sans</strong> melalui webfont CDN berkecepatan tinggi,
-            serta iconset SVG modern dari <strong>Heroicons</strong> (outline & solid) untuk antarmuka yang
-            presisi.
+          <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+            Didukung oleh <strong>Tailwind CSS v4</strong> berbasis engine Oxide berkecepatan tinggi,
+            font <strong>Google Sans</strong> via directive <code>@theme</code>, serta ikon vektor
+            SVG dari <strong>Heroicons</strong>.
           </p>
         </Card>
       </div>

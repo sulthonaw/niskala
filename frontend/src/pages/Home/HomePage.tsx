@@ -12,7 +12,6 @@ import { Card } from '../../components/ui/Card';
 import { useCounter } from '../../hooks/useCounter';
 
 export function HomePage() {
-  // Logic Layer: state & business operations isolated in custom hook
   const { count, increment, decrement, reset, isEven, isPositive, isZero } = useCounter({
     initialValue: 0,
     min: -10,
@@ -20,57 +19,36 @@ export function HomePage() {
   });
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+    <div className="flex flex-col gap-8">
       {/* Hero Welcome Section */}
-      <section style={{ textAlign: 'center', padding: '1rem 0' }}>
-        <div style={{ display: 'inline-flex', marginBottom: '1rem' }}>
+      <section className="text-center py-4">
+        <div className="inline-flex mb-3">
           <Badge variant="primary">
-            <SparklesIcon style={{ width: '0.875rem', height: '0.875rem' }} />
-            <span>Frontend Architecture Ready</span>
+            <SparklesIcon className="w-3.5 h-3.5" />
+            <span>Tailwind CSS v4 + Google Sans</span>
           </Badge>
         </div>
-        <h1
-          style={{
-            fontSize: '2.5rem',
-            fontWeight: 700,
-            letterSpacing: '-0.025em',
-            marginBottom: '0.75rem',
-            color: 'var(--text-primary)',
-          }}
-        >
-          Google Sans & Modular Architecture
+        <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 dark:text-slate-100 mb-3">
+          Modular Frontend Architecture
         </h1>
-        <p
-          style={{
-            fontSize: '1.125rem',
-            color: 'var(--text-secondary)',
-            maxWidth: '640px',
-            margin: '0 auto',
-          }}
-        >
+        <p className="text-base sm:text-lg text-slate-600 dark:text-slate-400 max-w-xl mx-auto">
           Struktur frontend terpisah secara bersih antara <strong>UI (Presentational)</strong>,{' '}
-          <strong>Logic (Custom Hooks)</strong>, dan <strong>Routes</strong> menggunakan{' '}
-          <code>@heroicons/react</code>.
+          <strong>Logic (Custom Hooks)</strong>, dan <strong>Routes</strong> dengan utilitas{' '}
+          <strong>Tailwind CSS v4</strong>.
         </p>
       </section>
 
       {/* Grid of Cards */}
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-          gap: '1.5rem',
-        }}
-      >
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Card 1: Interactive UI vs Logic Demo */}
         <Card
           title="Demo Pemisahan UI vs Logic"
           subtitle="Komponen Button murni menerima props, state dikelola oleh useCounter"
-          icon={<ChartBarIcon style={{ width: '1.25rem', height: '1.25rem' }} />}
+          icon={<ChartBarIcon className="w-5 h-5" />}
           footer={
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '0.875rem' }}>
-              <span style={{ color: 'var(--text-muted)' }}>Status State:</span>
-              <div style={{ display: 'flex', gap: '0.5rem' }}>
+            <div className="flex items-center justify-between text-xs sm:text-sm">
+              <span className="text-slate-500 dark:text-slate-400">Status State:</span>
+              <div className="flex items-center gap-2">
                 <Badge variant={isEven ? 'success' : 'default'}>
                   {isEven ? 'Genap' : 'Ganjil'}
                 </Badge>
@@ -81,19 +59,12 @@ export function HomePage() {
             </div>
           }
         >
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1.5rem', padding: '1rem 0' }}>
-            <div
-              style={{
-                fontSize: '3.5rem',
-                fontWeight: 700,
-                color: 'var(--primary)',
-                lineHeight: 1,
-              }}
-            >
+          <div className="flex flex-col items-center gap-6 py-4">
+            <div className="text-6xl font-bold text-blue-600 dark:text-blue-400 tabular-nums tracking-tight">
               {count}
             </div>
 
-            <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap', justifyContent: 'center' }}>
+            <div className="flex items-center gap-3 flex-wrap justify-center">
               <Button
                 variant="outline"
                 onClick={decrement}
@@ -123,31 +94,38 @@ export function HomePage() {
         <Card
           title="Komponen & Fitur Terpasang"
           subtitle="Teknologi yang telah terkonfigurasi di proyek"
-          icon={<RectangleStackIcon style={{ width: '1.25rem', height: '1.25rem' }} />}
+          icon={<RectangleStackIcon className="w-5 h-5" />}
         >
-          <ul
-            style={{
-              listStyle: 'none',
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '0.75rem',
-            }}
-          >
-            <li style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+          <ul className="flex flex-col gap-3">
+            <li className="flex items-center gap-3">
+              <Badge variant="success">Styling</Badge>
+              <span className="text-sm text-slate-700 dark:text-slate-300">
+                Tailwind CSS v4 via <code>@tailwindcss/vite</code>
+              </span>
+            </li>
+            <li className="flex items-center gap-3">
               <Badge variant="success">Font</Badge>
-              <span style={{ fontSize: '0.925rem' }}>Google Sans terintegrasi via Google Fonts / CDN</span>
+              <span className="text-sm text-slate-700 dark:text-slate-300">
+                Google Sans terkonfigurasi dalam <code>@theme</code>
+              </span>
             </li>
-            <li style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+            <li className="flex items-center gap-3">
               <Badge variant="success">Ikon</Badge>
-              <span style={{ fontSize: '0.925rem' }}>Heroicons v2 resmi terpasang (@heroicons/react)</span>
+              <span className="text-sm text-slate-700 dark:text-slate-300">
+                Heroicons v2 resmi terpasang (@heroicons/react)
+              </span>
             </li>
-            <li style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+            <li className="flex items-center gap-3">
               <Badge variant="success">Router</Badge>
-              <span style={{ fontSize: '0.925rem' }}>react-router-dom v7 dengan modular routing</span>
+              <span className="text-sm text-slate-700 dark:text-slate-300">
+                react-router-dom v7 dengan modular routing
+              </span>
             </li>
-            <li style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-              <Badge variant="success">Struktur</Badge>
-              <span style={{ fontSize: '0.925rem' }}>Separation of Concerns: UI, Hooks, Pages, Routes</span>
+            <li className="flex items-center gap-3">
+              <Badge variant="success">Arsitektur</Badge>
+              <span className="text-sm text-slate-700 dark:text-slate-300">
+                Separation of Concerns: UI, Hooks, Pages, Routes
+              </span>
             </li>
           </ul>
         </Card>

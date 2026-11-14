@@ -14,74 +14,40 @@ export function Card({
   icon,
   children,
   footer,
-  style,
   className = '',
   ...props
 }: CardProps) {
-  const cardStyles: React.CSSProperties = {
-    backgroundColor: 'var(--bg-secondary)',
-    border: '1px solid var(--border-color)',
-    borderRadius: 'var(--radius-lg)',
-    boxShadow: 'var(--shadow-sm)',
-    overflow: 'hidden',
-    display: 'flex',
-    flexDirection: 'column',
-    ...style,
-  };
-
-  const headerStyles: React.CSSProperties = {
-    padding: '1.25rem 1.5rem',
-    borderBottom: subtitle || children ? '1px solid var(--border-subtle)' : 'none',
-    display: 'flex',
-    alignItems: 'center',
-    gap: '0.75rem',
-  };
-
-  const bodyStyles: React.CSSProperties = {
-    padding: '1.5rem',
-    flex: 1,
-  };
-
-  const footerStyles: React.CSSProperties = {
-    padding: '1rem 1.5rem',
-    borderTop: '1px solid var(--border-subtle)',
-    backgroundColor: 'var(--bg-tertiary)',
-  };
-
   return (
-    <div style={cardStyles} className={`ui-card ${className}`} {...props}>
+    <div
+      className={`bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 rounded-2xl shadow-xs overflow-hidden flex flex-col ${className}`}
+      {...props}
+    >
       {(title || icon) && (
-        <div style={headerStyles} className="ui-card__header">
+        <div className="px-6 py-5 border-b border-slate-100 dark:border-slate-800 flex items-center gap-3">
           {icon && (
-            <div
-              style={{
-                display: 'inline-flex',
-                padding: '0.5rem',
-                borderRadius: 'var(--radius-md)',
-                backgroundColor: 'var(--primary-light)',
-                color: 'var(--primary-text)',
-                width: '1.5rem',
-                height: '1.5rem',
-              }}
-            >
+            <div className="flex items-center justify-center p-2 rounded-lg bg-blue-50 dark:bg-blue-950/50 text-blue-600 dark:text-blue-400 shrink-0 w-9 h-9">
               {icon}
             </div>
           )}
           <div>
-            {title && <h3 style={{ fontSize: '1.125rem', fontWeight: 600 }}>{title}</h3>}
+            {title && (
+              <h3 className="text-base font-semibold text-slate-900 dark:text-slate-100">
+                {title}
+              </h3>
+            )}
             {subtitle && (
-              <p style={{ fontSize: '0.875rem', color: 'var(--text-secondary)', marginTop: '0.125rem' }}>
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
                 {subtitle}
               </p>
             )}
           </div>
         </div>
       )}
-      <div style={bodyStyles} className="ui-card__body">
-        {children}
-      </div>
+
+      <div className="p-6 flex-1">{children}</div>
+
       {footer && (
-        <div style={footerStyles} className="ui-card__footer">
+        <div className="px-6 py-4 border-t border-slate-100 dark:border-slate-800/80 bg-slate-50/60 dark:bg-slate-900/60">
           {footer}
         </div>
       )}

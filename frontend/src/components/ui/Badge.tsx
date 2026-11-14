@@ -5,47 +5,26 @@ export interface BadgeProps extends HTMLAttributes<HTMLSpanElement> {
   children: ReactNode;
 }
 
+const variantStyles: Record<string, string> = {
+  primary:
+    'bg-blue-50 text-blue-700 border-blue-200/60 dark:bg-blue-950/40 dark:text-blue-300 dark:border-blue-900/50',
+  success:
+    'bg-emerald-50 text-emerald-700 border-emerald-200/60 dark:bg-emerald-950/40 dark:text-emerald-300 dark:border-emerald-900/50',
+  warning:
+    'bg-amber-50 text-amber-700 border-amber-200/60 dark:bg-amber-950/40 dark:text-amber-300 dark:border-amber-900/50',
+  default:
+    'bg-slate-100 text-slate-700 border-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700',
+};
+
 export function Badge({
   variant = 'default',
   children,
   className = '',
-  style,
   ...props
 }: BadgeProps) {
-  const badgeStyles: React.CSSProperties = {
-    display: 'inline-flex',
-    alignItems: 'center',
-    gap: '0.25rem',
-    padding: '0.2rem 0.6rem',
-    borderRadius: 'var(--radius-full)',
-    fontSize: '0.75rem',
-    fontWeight: 500,
-    ...style,
-  };
-
-  const variantStyles: Record<string, React.CSSProperties> = {
-    primary: {
-      backgroundColor: 'var(--primary-light)',
-      color: 'var(--primary-text)',
-    },
-    success: {
-      backgroundColor: 'var(--success-light)',
-      color: 'var(--success)',
-    },
-    warning: {
-      backgroundColor: 'var(--warning-light)',
-      color: 'var(--warning)',
-    },
-    default: {
-      backgroundColor: 'var(--bg-tertiary)',
-      color: 'var(--text-secondary)',
-    },
-  };
-
   return (
     <span
-      style={{ ...badgeStyles, ...variantStyles[variant] }}
-      className={`ui-badge ui-badge--${variant} ${className}`}
+      className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium border ${variantStyles[variant]} ${className}`}
       {...props}
     >
       {children}

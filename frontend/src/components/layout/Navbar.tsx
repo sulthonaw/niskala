@@ -12,79 +12,37 @@ export function Navbar() {
   const getIcon = (path: string) => {
     switch (path) {
       case '/':
-        return <HomeIcon style={{ width: '1.25rem', height: '1.25rem' }} />;
+        return <HomeIcon className="w-4 h-4" />;
       case '/about':
-        return <InformationCircleIcon style={{ width: '1.25rem', height: '1.25rem' }} />;
+        return <InformationCircleIcon className="w-4 h-4" />;
       default:
         return null;
     }
   };
 
   return (
-    <header
-      style={{
-        borderBottom: '1px solid var(--border-color)',
-        backgroundColor: 'var(--bg-primary)',
-        position: 'sticky',
-        top: 0,
-        zIndex: 50,
-      }}
-    >
-      <div
-        style={{
-          maxWidth: '1100px',
-          margin: '0 auto',
-          padding: '1rem 1.5rem',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-        }}
-      >
+    <header className="sticky top-0 z-50 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-slate-200/80 dark:border-slate-800">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 py-3.5 flex items-center justify-between">
         <Link
           to="/"
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '0.625rem',
-            fontWeight: 700,
-            fontSize: '1.25rem',
-            color: 'var(--text-primary)',
-          }}
+          className="flex items-center gap-2.5 font-bold text-lg text-slate-900 dark:text-slate-100 group"
         >
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              width: '2.25rem',
-              height: '2.25rem',
-              borderRadius: 'var(--radius-md)',
-              backgroundColor: 'var(--primary)',
-              color: '#ffffff',
-            }}
-          >
-            <SparklesIcon style={{ width: '1.25rem', height: '1.25rem' }} />
+          <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-blue-600 text-white shadow-xs transition-transform group-hover:scale-105">
+            <SparklesIcon className="w-4 h-4" />
           </div>
-          <span>Niskala</span>
+          <span className="tracking-tight">Niskala</span>
         </Link>
 
-        <nav style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+        <nav className="flex items-center gap-1.5">
           {navItems.map((item) => (
             <Link
               key={item.path}
               to={item.path}
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '0.5rem',
-                padding: '0.5rem 0.875rem',
-                borderRadius: 'var(--radius-md)',
-                fontSize: '0.875rem',
-                fontWeight: 500,
-                color: item.isActive ? 'var(--primary)' : 'var(--text-secondary)',
-                backgroundColor: item.isActive ? 'var(--primary-light)' : 'transparent',
-                transition: 'all 0.15s ease',
-              }}
+              className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${
+                item.isActive
+                  ? 'bg-blue-50 text-blue-600 dark:bg-blue-950/60 dark:text-blue-400'
+                  : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 hover:bg-slate-100/70 dark:hover:bg-slate-800/60'
+              }`}
             >
               {getIcon(item.path)}
               <span>{item.label}</span>

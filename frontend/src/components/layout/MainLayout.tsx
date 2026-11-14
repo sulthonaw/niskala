@@ -3,30 +3,13 @@ import { Navbar } from './Navbar';
 
 export function MainLayout() {
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+    <div className="min-h-screen flex flex-col bg-slate-50/50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 antialiased">
       <Navbar />
-      <main
-        style={{
-          flex: 1,
-          maxWidth: '1100px',
-          width: '100%',
-          margin: '0 auto',
-          padding: '2rem 1.5rem',
-        }}
-      >
+      <main className="flex-1 max-w-5xl w-full mx-auto px-4 sm:px-6 py-8">
         <Outlet />
       </main>
-      <footer
-        style={{
-          borderTop: '1px solid var(--border-color)',
-          padding: '1.5rem',
-          textAlign: 'center',
-          fontSize: '0.875rem',
-          color: 'var(--text-muted)',
-          backgroundColor: 'var(--bg-secondary)',
-        }}
-      >
-        <p>Niskala Frontend • Google Sans • UI & Logic Separated</p>
+      <footer className="border-t border-slate-200/80 dark:border-slate-800 py-6 text-center text-xs text-slate-500 dark:text-slate-400 bg-white/50 dark:bg-slate-900/50">
+        <p>Niskala Frontend • Google Sans • Tailwind CSS v4 • Heroicons</p>
       </footer>
     </div>
   );
