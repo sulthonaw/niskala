@@ -1,56 +1,86 @@
 import type { HTMLAttributes, ReactNode } from 'react';
+import { cn } from '../../utils/formatters';
 
 export interface CardProps extends HTMLAttributes<HTMLDivElement> {
   title?: string;
   subtitle?: string;
-  icon?: ReactNode;
-  children: ReactNode;
+  headerAction?: ReactNode;
   footer?: ReactNode;
+  /** Toggle ambient corner mint-green radial orbs */
+  cornerGlow?: boolean;
+  noPadding?: boolean;
+  children: ReactNode;
 }
 
 export function Card({
   title,
   subtitle,
-  icon,
-  children,
+  headerAction,
   footer,
+  cornerGlow = true,
+  noPadding = false,
+  children,
   className = '',
   ...props
 }: CardProps) {
   return (
-    <div
-      className={`bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 rounded-2xl shadow-xs overflow-hidden flex flex-col ${className}`}
+    <section
+      className={cn(
+        'relative overflow-hidden rounded-[22px] flex flex-col',
+        'bg-[#0e1012]/80 backdrop-blur-md',
+        'border border-white/[0.11] shadow-[0_18px_48px_rgba(0,0,0,0.65)]',
+        className
+      )}
       {...props}
     >
-      {(title || icon) && (
-        <div className="px-6 py-5 border-b border-slate-100 dark:border-slate-800 flex items-center gap-3">
-          {icon && (
-            <div className="flex items-center justify-center p-2 rounded-lg bg-blue-50 dark:bg-blue-950/50 text-blue-600 dark:text-blue-400 shrink-0 w-9 h-9">
-              {icon}
-            </div>
-          )}
-          <div>
+      {/* Top hairline specular edge */}
+      <span
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-white/25 to-transparent"
+      />
+
+      {/* Signature corner blurred mint-green radial orbs */}
+      {cornerGlow && (
+        <>
+          <span
+            aria-hidden="true"
+            className="pointer-events-none absolute -top-12 -left-12 w-40 h-40 rounded-full bg-[#A4FFF0]/[0.13] blur-2xl"
+          />
+          <span
+            aria-hidden="true"
+            className="pointer-events-none absolute -bottom-14 -right-12 w-44 h-44 rounded-full bg-[#A4FFF0]/[0.12] blur-2xl"
+          />
+        </>
+      )}
+
+      {/* Optional Card Header */}
+      {(title || subtitle || headerAction) && (
+        <header className="relative z-10 px-5 pt-5 pb-2 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div className="min-w-0">
             {title && (
-              <h3 className="text-base font-semibold text-slate-900 dark:text-slate-100">
+              <h2 className="text-[15px] font-medium tracking-tight text-white/95 truncate">
                 {title}
-              </h3>
+              </h2>
             )}
             {subtitle && (
-              <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-                {subtitle}
-              </p>
+              <p className="text-[11px] text-zinc-400 mt-0.5">{subtitle}</p>
             )}
           </div>
-        </div>
+          {headerAction && <div className="shrink-0 flex items-center gap-2">{headerAction}</div>}
+        </header>
       )}
 
-      <div className="p-6 flex-1">{children}</div>
+      {/* Card Body */}
+      <div className={cn('relative z-10 flex-1 flex flex-col', !noPadding && 'px-5 pb-5 pt-2')}>
+        {children}
+      </div>
 
+      {/* Optional Footer */}
       {footer && (
-        <div className="px-6 py-4 border-t border-slate-100 dark:border-slate-800/80 bg-slate-50/60 dark:bg-slate-900/60">
+        <footer className="relative z-10 px-5 py-3.5 border-t border-white/[0.08] bg-black/25">
           {footer}
-        </div>
+        </footer>
       )}
-    </div>
+    </section>
   );
 }

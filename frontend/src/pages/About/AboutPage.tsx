@@ -1,70 +1,62 @@
-import {
-  CodeBracketIcon,
-  CpuChipIcon,
-  FolderIcon,
-  SparklesIcon,
-} from '@heroicons/react/24/outline';
+import { Badge } from '../../components/ui/Badge';
 import { Card } from '../../components/ui/Card';
+import { useNiskalaData } from '../../hooks/useNiskalaData';
 
 export function AboutPage() {
+  const { dataset } = useNiskalaData();
+  const harm = dataset?.meta.harmonization;
+
   return (
-    <div className="flex flex-col gap-8">
+    <div className="flex flex-col gap-6">
       <header>
-        <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-slate-900 dark:text-slate-100 mb-2">
-          Arsitektur Frontend
+        <Badge variant="mint" showDot className="mb-2">
+          METHODOLOGY &amp; DESIGN SYSTEM
+        </Badge>
+        <h1 className="text-2xl sm:text-3xl font-semibold tracking-tight text-white">
+          Niskala Harmonization &amp; UI Architecture
         </h1>
-        <p className="text-slate-600 dark:text-slate-400 text-sm sm:text-base">
-          Dokumentasi pembagian tanggung jawab antara UI, Logic, Routing, dan Styling Tailwind CSS v4.
+        <p className="text-xs sm:text-sm text-zinc-400 mt-1">
+          Static React + Vite + TypeScript frontend consuming pre-computed pipeline outputs.
         </p>
       </header>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <Card
-          title="1. UI Layer (src/components/ui/)"
-          subtitle="Presentational Components"
-          icon={<FolderIcon className="w-5 h-5" />}
-        >
-          <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-            Komponen murni (dumb components) seperti <code>Button</code>, <code>Card</code>, dan{' '}
-            <code>Badge</code>. Menggunakan utility classes Tailwind CSS v4, tidak memuat business
-            logic, dan hanya menerima props.
-          </p>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+        <Card title="Sensor Harmonization Formula">
+          <div className="flex flex-col gap-2 text-xs text-zinc-300 leading-relaxed">
+            <p>
+              <strong className="text-white">Reference:</strong>{' '}
+              {harm?.reference ?? 'VIIRS NOAA-20 (375 m)'}
+            </p>
+            <p>
+              <strong className="text-white">MODIS Reference:</strong>{' '}
+              {harm?.modis_reference ?? 'MODIS Aqua (1 km)'}
+            </p>
+            <p>
+              <strong className="text-white">Overlap Window:</strong>{' '}
+              {harm?.overlap ?? '2018-04 to 2025-12'}
+            </p>
+            <code className="mt-1 rounded-xl bg-black/50 border border-white/[0.08] p-3 font-mono text-[#A4FFF0]">
+              {harm?.formula ?? 'H = Aqua x r_district before 2018-04; H = NOAA-20 from 2018-04'}
+            </code>
+          </div>
         </Card>
 
-        <Card
-          title="2. Logic Layer (src/hooks/)"
-          subtitle="Business Rules & State"
-          icon={<CpuChipIcon className="w-5 h-5" />}
-        >
-          <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-            Seluruh state management, kalkulasi, validasi, dan API call diisolasi ke dalam custom
-            hooks (seperti <code>useCounter</code>, <code>useNavigationLinks</code>) sehingga dapat
-            diuji secara mandiri tanpa ketergantungan UI.
-          </p>
-        </Card>
-
-        <Card
-          title="3. Routing Layer (src/routes/)"
-          subtitle="Pohon Navigasi Terpusat"
-          icon={<CodeBracketIcon className="w-5 h-5" />}
-        >
-          <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-            Konfigurasi rute diatur secara deklaratif melalui <code>react-router-dom</code> di dalam{' '}
-            <code>src/routes/AppRoutes.tsx</code>, membungkus setiap halaman dengan{' '}
-            <code>MainLayout</code> dan menyediakan fallback 404 otomatis.
-          </p>
-        </Card>
-
-        <Card
-          title="4. Styling & Tipografi"
-          subtitle="Tailwind CSS v4 & Google Sans"
-          icon={<SparklesIcon className="w-5 h-5" />}
-        >
-          <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-            Didukung oleh <strong>Tailwind CSS v4</strong> berbasis engine Oxide berkecepatan tinggi,
-            font <strong>Google Sans</strong> via directive <code>@theme</code>, serta ikon vektor
-            SVG dari <strong>Heroicons</strong>.
-          </p>
+        <Card title="Baseline & Anomaly Scale">
+          <div className="flex flex-col gap-2 text-xs text-zinc-300 leading-relaxed">
+            <p>
+              <strong className="text-white">Method:</strong>{' '}
+              {dataset?.meta.baseline_method ??
+                'leave-one-year-out mean per district and calendar month'}
+            </p>
+            <p>
+              <strong className="text-white">Baseline Years:</strong>{' '}
+              {dataset ? `${dataset.meta.baseline_years[0]}–${dataset.meta.baseline_years[1]}` : '2003–2025'}
+            </p>
+            <p>
+              <strong className="text-white">Data Generated:</strong>{' '}
+              {dataset?.meta.generated_local ?? '—'}
+            </p>
+          </div>
         </Card>
       </div>
     </div>

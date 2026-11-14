@@ -3,13 +3,18 @@ import { Navbar } from './Navbar';
 
 export function MainLayout() {
   return (
-    <div className="min-h-screen flex flex-col bg-slate-50/50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 antialiased">
+    <div className="min-h-screen flex flex-col bg-monochrome-cosmos text-white antialiased overflow-x-hidden">
       <Navbar />
-      <main className="flex-1 max-w-5xl w-full mx-auto px-4 sm:px-6 py-8">
+
+      <main className="flex-1 max-w-[1440px] w-full mx-auto px-4 sm:px-6 py-6 min-w-0">
         <Outlet />
       </main>
-      <footer className="border-t border-slate-200/80 dark:border-slate-800 py-6 text-center text-xs text-slate-500 dark:text-slate-400 bg-white/50 dark:bg-slate-900/50">
-        <p>Niskala Frontend • Google Sans • Tailwind CSS v4 • Heroicons</p>
+
+      <footer className="border-t border-white/[0.08] py-4 px-4 sm:px-6">
+        <div className="max-w-[1440px] mx-auto flex flex-col sm:flex-row items-center justify-between gap-2 text-[11px] text-zinc-500 text-center sm:text-left">
+          <span>NISKALA · West Kalimantan Harmonized Hotspot Anomaly Calendar (2002–2026)</span>
+          <span className="font-mono">NOAA-20 Equivalent · 2003–2025 LOYO Baseline</span>
+        </div>
       </footer>
     </div>
   );
