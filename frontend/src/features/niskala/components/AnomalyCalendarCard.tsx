@@ -29,7 +29,6 @@ export function AnomalyCalendarCard({
   onSelectFocusMonth,
 }: AnomalyCalendarCardProps) {
   const [showAsTable, setShowAsTable] = useState(false);
-  const [hoveredCell, setHoveredCell] = useState<MonthCell | null>(null);
 
   // Group cells by year descending (newest on top per PRD 6.2)
   const rowsByYear = useMemo(() => {
@@ -51,12 +50,10 @@ export function AnomalyCalendarCard({
       }));
   }, [cells]);
 
-  const activeTooltipCell = hoveredCell ?? cells.find((c) => c.ym === focusMonth) ?? null;
-
   return (
     <Card
       title={`Harmonized Anomaly Calendar · ${regionName}`}
-      subtitle="Select any month cell to inspect calibrated hotspot counts, baseline ratios, and historical percentile rank."
+      subtitle="Select any month cell to update the summary cards and district ranking."
       headerAction={
         <Button
           variant={showAsTable ? 'mint' : 'outline'}
@@ -90,46 +87,11 @@ export function AnomalyCalendarCard({
               <span>No harmonized data</span>
             </span>
           </div>
+          <span className="text-zinc-500">Dashed cell = in progress ({partialDaysCovered}d)</span>
         </div>
       }
     >
       <div className="flex flex-col gap-4">
-        {/* Live Cell Inspector Bar (acts as accessible persistent tooltip) */}
-        {activeTooltipCell && (
-          <div className="rounded-2xl bg-black/50 border border-white/[0.09] px-4 py-3 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs">
-            <div className="flex flex-col gap-0.5">
-              <div className="font-semibold text-white">
-                {formatYmLabel(activeTooltipCell.ym)} · {regionName}
-                {activeTooltipCell.partial && (
-                  <span className="ml-2 font-brand text-[10px] uppercase tracking-[0.08em] text-[#FFEB67]">
-                    (In progress · {partialDaysCovered} days)
-                  </span>
-                )}
-              </div>
-              <div className="text-zinc-300 text-[11px] tabular-nums">
-                {activeTooltipCell.hotspots !== null
-                  ? `${Math.round(activeTooltipCell.hotspots).toLocaleString()} hotspots (NOAA-20 eq.) · Normal: ${Math.round(activeTooltipCell.normal).toLocaleString()} · ${activeTooltipCell.ratio?.toFixed(1) ?? '—'}× normal · ${
-                      activeTooltipCell.cls !== null
-                        ? CLASS_SHORT_LABEL[activeTooltipCell.cls]
-                        : '—'
-                    }`
-                  : 'No harmonized data (Terra only)'}
-              </div>
-            </div>
-
-            <div className="flex flex-col sm:items-end text-[11px] text-zinc-400 shrink-0">
-              <span>
-                {activeTooltipCell.percentile !== null
-                  ? `Higher than ${Math.round(activeTooltipCell.percentile)}% of past ${MONTH_SHORT_NAMES[activeTooltipCell.month - 1]}s`
-                  : 'Baseline uncalibrated'}
-              </span>
-              <span className="font-brand text-[10px] uppercase tracking-[0.08em] text-zinc-400">
-                Source: {activeTooltipCell.source}
-              </span>
-            </div>
-          </div>
-        )}
-
         {!showAsTable ? (
           /* Heatmap Grid (Years × 12 Months) */
           <div className="overflow-x-auto pb-1">
@@ -175,9 +137,6 @@ export function AnomalyCalendarCard({
                           key={cell.ym}
                           type="button"
                           onClick={() => onSelectFocusMonth(cell.ym)}
-                          onMouseEnter={() => setHoveredCell(cell)}
-                          onFocus={() => setHoveredCell(cell)}
-                          onMouseLeave={() => setHoveredCell(null)}
                           aria-label={`${formatYmLabel(cell.ym)}: ${
                             cell.ratio !== null
                               ? `${cell.ratio.toFixed(1)}x normal`

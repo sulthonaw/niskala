@@ -250,11 +250,13 @@
 @media print {
   @page {
     size: A4;
-    margin: 12mm;
+    margin: 0;
   }
 
   html,
   body {
+    margin: 0 !important;
+    padding: 0 !important;
     background: #ffffff !important;
     background-image: none !important;
   }
@@ -265,7 +267,7 @@
 
   .niskala-print-report {
     display: block;
-    color: #111111;
+    color: #0f172a;
     font-family: var(--font-sans);
     font-size: 10px;
     line-height: 1.45;
@@ -273,18 +275,34 @@
     print-color-adjust: exact;
   }
 
+  .npr-page-shell {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .npr-page-spacer {
+    height: 12mm;
+  }
+
+  .npr-page-body {
+    padding: 0 14mm;
+  }
+
   .niskala-print-report h1 {
-    font-size: 20px;
-    font-weight: 600;
+    font-size: 19px;
+    font-weight: 700;
+    color: #0f172a;
     margin: 2px 0;
   }
 
   .niskala-print-report h2 {
-    font-size: 11px;
+    font-family: var(--font-brand);
+    font-size: 10px;
     font-weight: 600;
+    color: #0f172a;
     margin: 14px 0 6px;
     text-transform: uppercase;
-    letter-spacing: 0.06em;
+    letter-spacing: 0.08em;
   }
 
   .niskala-print-report p {
@@ -297,32 +315,91 @@
     list-style: disc;
   }
 
-  .npr-header {
+  .npr-letterhead {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     gap: 16px;
-    padding-bottom: 8px;
-    border-bottom: 2px solid #111111;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #0f172a;
+    box-shadow: 0 3px 0 0 #0d9488;
+    margin-bottom: 12px;
+  }
+
+  .npr-brand-lockup {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .npr-brand-logo {
+    width: 34px;
+    height: 34px;
+    border-radius: 9999px;
+    object-fit: cover;
+    border: 1px solid #cbd5e1;
+  }
+
+  .npr-brand-name {
+    font-family: var(--font-brand);
+    font-size: 17px;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    color: #0f172a;
+    line-height: 1.1;
+  }
+
+  .npr-brand-tagline {
+    font-family: var(--font-brand);
+    font-size: 7.5px;
+    letter-spacing: 0.14em;
+    color: #0d9488;
+    margin-top: 2px;
+  }
+
+  .npr-brand-sub {
+    font-size: 8.5px;
+    color: #475569;
+    margin-top: 1px;
+  }
+
+  .npr-doc-meta {
+    text-align: right;
+    font-family: var(--font-sans);
+    font-size: 8.5px;
+    color: #334155;
+    border-left: 1px solid #cbd5e1;
+    padding-left: 12px;
+    line-height: 1.5;
+  }
+
+  .npr-doc-meta span {
+    font-family: var(--font-brand);
+    font-size: 7.5px;
+    letter-spacing: 0.08em;
+    color: #64748b;
+  }
+
+  .npr-subject-bar {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-left: 3px solid #0d9488;
+    border-radius: 6px;
+    padding: 8px 10px;
+    margin-bottom: 10px;
   }
 
   .npr-eyebrow,
   .npr-label {
-    font-family: var(--font-mono);
-    font-size: 8.5px;
+    font-family: var(--font-brand);
+    font-size: 8px;
     text-transform: uppercase;
     letter-spacing: 0.12em;
-    color: #555555;
-  }
-
-  .npr-meta {
-    text-align: right;
-    font-family: var(--font-mono);
-    font-size: 8.5px;
-    color: #555555;
+    color: #475569;
   }
 
   .npr-muted {
-    color: #555555;
+    color: #475569;
     font-size: 9px;
   }
 
@@ -330,11 +407,11 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 8px;
-    margin-top: 10px;
+    margin-top: 8px;
   }
 
   .npr-answers > div {
-    border: 1px solid #cccccc;
+    border: 1px solid #cbd5e1;
     border-radius: 6px;
     padding: 6px 8px;
   }
@@ -353,10 +430,10 @@
   }
 
   .npr-calendar th {
-    font-family: var(--font-mono);
+    font-family: var(--font-brand);
     font-size: 8px;
     font-weight: 500;
-    color: #555555;
+    color: #475569;
   }
 
   .npr-calendar tbody th {
@@ -368,8 +445,10 @@
   .npr-calendar td {
     height: 13px;
     text-align: center;
-    font-family: var(--font-mono);
+    font-family: var(--font-sans);
+    font-variant-numeric: tabular-nums;
     font-size: 7.5px;
+    font-weight: 600;
     border-radius: 2px;
   }
 
@@ -383,7 +462,7 @@
   }
 
   .npr-calendar td.npr-partial {
-    outline: 1px dashed #111111;
+    outline: 1px dashed #0f172a;
     outline-offset: -1px;
   }
 
@@ -393,7 +472,7 @@
     gap: 10px;
     margin-top: 6px;
     font-size: 8.5px;
-    color: #333333;
+    color: #334155;
   }
 
   .npr-legend span {
@@ -417,8 +496,8 @@
 
   .npr-table th,
   .npr-table td {
-    border-bottom: 1px solid #dddddd;
-    padding: 2px 6px;
+    border-bottom: 1px solid #e2e8f0;
+    padding: 2.5px 6px;
     text-align: right;
   }
 
@@ -428,10 +507,10 @@
   }
 
   .npr-table th {
-    font-family: var(--font-mono);
+    font-family: var(--font-brand);
     font-size: 8px;
     font-weight: 500;
-    color: #555555;
+    color: #475569;
     text-transform: uppercase;
   }
 
@@ -443,5 +522,22 @@
 
   .npr-avoid-break {
     break-inside: avoid;
+  }
+
+  .npr-corporate-footer {
+    margin-top: 14px;
+    padding-top: 8px;
+    border-top: 1px solid #cbd5e1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 8px;
+    color: #64748b;
+  }
+
+  .npr-corporate-footer strong {
+    font-family: var(--font-brand);
+    color: #0f172a;
+    letter-spacing: 0.14em;
   }
 }

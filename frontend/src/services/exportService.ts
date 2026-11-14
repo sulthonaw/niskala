@@ -29,12 +29,52 @@ const csvValue = (value: string | number | boolean | null | undefined): string =
   return /[",\n]/.test(text) ? `"${text.replace(/"/g, '""')}"` : text;
 };
 
+function buildNiskalaCsvDocument({
+  reportType,
+  regionName,
+  regionSlug,
+  fromYm,
+  toYm,
+  headerLine,
+  rowLines,
+}: {
+  reportType: string;
+  regionName: string;
+  regionSlug: string;
+  fromYm: string;
+  toYm: string;
+  headerLine: string;
+  rowLines: string[];
+}): string {
+  const generatedAt = new Date().toISOString();
+  const preamble = [
+    ['NISKALA', 'Harmonized Hotspot Anomaly Archive (West Kalimantan)'],
+    ['Report Type', reportType],
+    ['Region', `${regionName} (${regionSlug})`],
+    ['Date Range', `${fromYm} to ${toYm}`],
+    ['Reference Scale', 'VIIRS NOAA-20 Equivalent'],
+    ['Sources', 'NASA FIRMS (MODIS C6.1 & VIIRS C2) · NOAA PSL · KLHK SiPongi'],
+    ['Generated (UTC)', generatedAt],
+    ['Total Records', rowLines.length],
+  ]
+    .map((pair) => pair.map(csvValue).join(','))
+    .join('\n');
+
+  return `\uFEFF${preamble}\n\n${headerLine}\n${rowLines.join('\n')}\n`;
+}
+
 /* ------------------------------------------------------------------ */
 /* Monthly summary (harmonized calendar)                               */
 /* ------------------------------------------------------------------ */
 
-export function buildMonthlySummaryCsv(regionName: string, cells: MonthCell[]): string {
-  const header = [
+export function buildMonthlySummaryCsv(
+  regionName: string,
+  regionSlug: string,
+  fromYm: string,
+  toYm: string,
+  cells: MonthCell[]
+): string {
+  const headerLine = [
     'year',
     'month',
     'region',
@@ -46,8 +86,11 @@ export function buildMonthlySummaryCsv(regionName: string, cells: MonthCell[]): 
     'percentile',
     'source',
     'partial_month',
-  ];
-  const rows = cells.map((c) =>
+  ]
+    .map(csvValue)
+    .join(',');
+
+  const rowLines = cells.map((c) =>
     [
       c.year,
       c.month,
@@ -64,7 +107,16 @@ export function buildMonthlySummaryCsv(regionName: string, cells: MonthCell[]): 
       .map(csvValue)
       .join(',')
   );
-  return [header.join(','), ...rows].join('\n') + '\n';
+
+  return buildNiskalaCsvDocument({
+    reportType: 'Monthly Harmonized Summary',
+    regionName,
+    regionSlug,
+    fromYm,
+    toYm,
+    headerLine,
+    rowLines,
+  });
 }
 
 /* ------------------------------------------------------------------ */
@@ -117,6 +169,8 @@ export async function planPointsExport(
 
 export async function buildPointsCsv(
   plan: PointsExportPlan,
+  regionName: string,
+  regionSlug: string,
   fromYm: string,
   toYm: string,
   onProgress: (done: number, total: number) => void
@@ -160,6 +214,17 @@ export async function buildPointsCsv(
       out.push(line);
     }
   }
-  if (!header) return { csv: '', rows: 0 };
-  return { csv: [header, ...out].join('\n') + '\n', rows: out.length };
+  if (!header || out.length === 0) return { csv: '', rows: 0 };
+
+  const csv = buildNiskalaCsvDocument({
+    reportType: 'Raw NASA FIRMS Detections',
+    regionName,
+    regionSlug,
+    fromYm,
+    toYm,
+    headerLine: header,
+    rowLines: out,
+  });
+
+  return { csv, rows: out.length };
 }

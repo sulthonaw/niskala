@@ -1,7 +1,5 @@
-import { MapPinIcon } from '@heroicons/react/24/solid';
 import { Button } from '../../components/ui/Button';
 import { Card } from '../../components/ui/Card';
-import { SelectDropdown } from '../../components/ui/SelectDropdown';
 import { AnomalyCalendarCard } from '../../features/niskala/components/AnomalyCalendarCard';
 import { AnswerCardsGrid } from '../../features/niskala/components/AnswerCardsGrid';
 import { DistrictRankingCard } from '../../features/niskala/components/DistrictRankingCard';
@@ -95,72 +93,26 @@ export function HomePage() {
 
   return (
     <div className="flex flex-col gap-6">
-      {/* Control Header & Region Selector */}
-      <section className="flex flex-col lg:flex-row lg:items-end justify-between gap-4">
-        <div className="flex flex-col gap-2">
-          <div className="flex items-center gap-2.5 flex-wrap font-brand text-[11px] uppercase tracking-[0.14em]">
-            <span className="text-[#A4FFF0]">{dataset.meta.region}</span>
-            <span className="text-zinc-600">/</span>
-            <span className="text-zinc-400">Focus: {formatYmLabel(focusMonth)}</span>
-          </div>
-          <h1 className="text-2xl sm:text-3xl font-semibold tracking-tight text-white">
-            Harmonized Hotspot Anomaly Calendar
-          </h1>
-          <p className="text-xs sm:text-sm text-zinc-400 max-w-2xl">
-            Monthly hotspot counts on the VIIRS NOAA-20 scale compared with the 2003–2025 normal
-            for West Kalimantan and each of its 14 districts.
-          </p>
+      {/* Page Header */}
+      <section className="flex flex-col gap-2">
+        <div className="flex items-center gap-2.5 flex-wrap font-brand text-[11px] uppercase tracking-[0.14em]">
+          <span className="text-[#A4FFF0]">{dataset.meta.region}</span>
+          <span className="text-zinc-600">/</span>
+          <span className="text-zinc-400">Focus: {formatYmLabel(focusMonth)}</span>
         </div>
-
-        {/* Region Dropdown */}
-        <div className="flex flex-col gap-1.5 min-w-[250px]">
-          <label
-            htmlFor="region-select"
-            className="text-[11px] font-brand uppercase tracking-[0.12em] text-zinc-400 flex items-center gap-1.5"
-          >
-            <MapPinIcon className="w-3.5 h-3.5 text-[#A4FFF0]" />
-            <span>Region (15 Areas)</span>
-          </label>
-          <SelectDropdown
-            id="region-select"
-            value={regionSlug}
-            onChange={setRegion}
-            ariaLabel="Select province or regency"
-            options={dataset.meta.districts.map((dist) => ({
-              value: dist.slug,
-              label: dist.name,
-              hint: dist.slug === 'kalimantan-barat' ? 'Province' : undefined,
-            }))}
-          />
-        </div>
+        <h1 className="text-2xl sm:text-3xl font-semibold tracking-tight text-white">
+          Harmonized Hotspot Anomaly Calendar
+        </h1>
+        <p className="text-xs sm:text-sm text-zinc-400 max-w-2xl">
+          Monthly hotspot counts on the VIIRS NOAA-20 scale compared with the 2003–2025 normal
+          for West Kalimantan and each of its 14 districts.
+        </p>
       </section>
 
-      {/* Reference Case Bar */}
-      <section className="flex flex-wrap items-center gap-2">
-        <span className="text-[11px] font-brand uppercase tracking-[0.12em] text-zinc-500 mr-1">
-          Reference Cases:
-        </span>
-        {REFERENCE_CASES.map((sc) => {
-          const isCurrent = regionSlug === sc.region && focusMonth === sc.focus;
-          return (
-            <button
-              key={sc.label}
-              type="button"
-              onClick={() => setScenario(sc.region, sc.focus)}
-              className={
-                isCurrent
-                  ? 'px-3 py-1 rounded-md text-xs font-medium bg-[#A4FFF0] text-[#050507] cursor-pointer'
-                  : 'hover-slide-fill [--slide-bg:rgba(164,255,240,0.12)] px-3 py-1 rounded-md text-xs font-medium bg-white/[0.03] text-zinc-300 border border-white/[0.12] hover:border-[#A4FFF0]/45 hover:text-white cursor-pointer'
-              }
-            >
-              {sc.label}
-            </button>
-          );
-        })}
-      </section>
-
-      {/* Date Range & Export (CSV, monthly summary, printable report) */}
+      {/* Consolidated Filters & Export Bar */}
       <RangeExportBar
+        regionSlug={regionSlug}
+        focusMonth={focusMonth}
         fromYm={fromYm}
         toYm={toYm}
         minYm={minYm}
@@ -168,6 +120,9 @@ export function HomePage() {
         activeDistrict={activeDistrict}
         districts={dataset.meta.districts}
         rangeCells={regionCells}
+        referenceCases={REFERENCE_CASES}
+        onSelectRegion={setRegion}
+        onSelectScenario={setScenario}
         onChangeRange={setRange}
         onPrintReport={handlePrintReport}
       />

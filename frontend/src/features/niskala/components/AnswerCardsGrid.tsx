@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import {
   ArrowsPointingOutIcon,
   ExclamationTriangleIcon,
@@ -19,6 +20,7 @@ import { cn } from '../../../utils/formatters';
 import { Badge } from '../../../components/ui/Badge';
 import { Button } from '../../../components/ui/Button';
 import { Card } from '../../../components/ui/Card';
+import { ChartTooltip } from '../../../components/ui/ChartTooltip';
 import { useRevealOnScroll } from '../../../hooks/useRevealOnScroll';
 
 export interface AnswerCardsGridProps {
@@ -31,6 +33,12 @@ export interface AnswerCardsGridProps {
   onSelectRegion: (slug: string) => void;
 }
 
+interface HoveredDatum {
+  idx: number;
+  x: number;
+  y: number;
+}
+
 export function AnswerCardsGrid({
   activeDistrict,
   focusMonth,
@@ -41,6 +49,8 @@ export function AnswerCardsGrid({
   onSelectRegion,
 }: AnswerCardsGridProps) {
   const [cardsVisible, observeCards] = useRevealOnScroll();
+  const [hoveredMonth, setHoveredMonth] = useState<HoveredDatum | null>(null);
+  const [hoveredHist, setHoveredHist] = useState<HoveredDatum | null>(null);
   const maxMonthlyMean = Math.max(...activeDistrict.monthly_mean, 1);
   const maxHistoryHotspots = Math.max(
     ...sameMonthHistory.map((item) => item.hotspots ?? 0),
@@ -64,6 +74,11 @@ export function AnswerCardsGrid({
           : 'bg-[#A4FFF0]'
       : 'bg-zinc-400';
 
+  const hoveredMonthlyVal =
+    hoveredMonth !== null ? activeDistrict.monthly_mean[hoveredMonth.idx] : null;
+  const hoveredHistItem =
+    hoveredHist !== null ? sameMonthHistory[hoveredHist.idx] : null;
+
   return (
     <section
       ref={observeCards}
@@ -81,33 +96,83 @@ export function AnswerCardsGrid({
         <div className="flex-1 flex flex-col justify-between gap-5">
           {/* 12-Month Normal Baseline Curve */}
           <div className="flex flex-col gap-2 pt-2">
-            <div className="flex items-end justify-between gap-1.5 h-28 border-b border-white/[0.08] pb-2">
-              {activeDistrict.monthly_mean.map((val, idx) => {
-                const monthNum = idx + 1;
-                const isPeak = activeDistrict.peak_months.includes(monthNum);
-                const heightPct = Math.max((val / maxMonthlyMean) * 100, 6);
-                return (
-                  <div
-                    key={MONTH_SHORT_NAMES[idx]}
-                    className="flex-1 flex flex-col items-center justify-end h-full gap-1.5 group"
-                    title={`${MONTH_SHORT_NAMES[idx]} normal: ${val.toFixed(1)} hotspots`}
-                  >
-                    <span
-                      data-visible={cardsVisible}
-                      className={cn(
-                        'chart-bar-reveal w-full max-w-[14px] rounded-t-[2px]',
-                        isPeak ? 'bg-[#A4FFF0]' : 'bg-white/25 group-hover:bg-white/50'
-                      )}
-                      style={{
-                        height: `${heightPct}%`,
-                        transitionDelay: `${idx * 35}ms`,
+            <div className="relative flex items-end gap-2 h-28 border-b border-white/[0.08] pb-2">
+              {hoveredMonth !== null && hoveredMonthlyVal !== null && (
+                <ChartTooltip
+                  title="Seasonal Baseline"
+                  badge={
+                    activeDistrict.peak_months.includes(hoveredMonth.idx + 1)
+                      ? 'Peak month'
+                      : 'Baseline'
+                  }
+                  x={hoveredMonth.x}
+                  y={hoveredMonth.y}
+                  rows={[
+                    {
+                      axis: 'X',
+                      label: 'Month',
+                      value: MONTH_SHORT_NAMES[hoveredMonth.idx],
+                    },
+                    {
+                      axis: 'Y',
+                      label: 'Mean Hotspots',
+                      value: `${hoveredMonthlyVal.toFixed(1)} pts`,
+                      swatchColor: activeDistrict.peak_months.includes(hoveredMonth.idx + 1)
+                        ? '#A4FFF0'
+                        : 'rgba(255,255,255,0.45)',
+                    },
+                  ]}
+                />
+              )}
+
+              <div className="flex flex-col justify-between h-full text-[10px] tabular-nums text-zinc-500 pr-1">
+                <span>{Math.round(maxMonthlyMean).toLocaleString()}</span>
+                <span>{Math.round(maxMonthlyMean / 2).toLocaleString()}</span>
+                <span>0</span>
+              </div>
+
+              <div className="flex-1 flex items-end justify-between gap-1.5 h-full">
+                {activeDistrict.monthly_mean.map((val, idx) => {
+                  const monthNum = idx + 1;
+                  const isPeak = activeDistrict.peak_months.includes(monthNum);
+                  const isHovered = hoveredMonth?.idx === idx;
+                  const heightPct = Math.max((val / maxMonthlyMean) * 100, 6);
+                  return (
+                    <button
+                      key={MONTH_SHORT_NAMES[idx]}
+                      type="button"
+                      onMouseEnter={(e) => setHoveredMonth({ idx, x: e.clientX, y: e.clientY })}
+                      onMouseMove={(e) => setHoveredMonth({ idx, x: e.clientX, y: e.clientY })}
+                      onMouseLeave={() => setHoveredMonth(null)}
+                      onFocus={(e) => {
+                        const r = e.currentTarget.getBoundingClientRect();
+                        setHoveredMonth({ idx, x: r.left + r.width / 2, y: r.top + r.height / 2 });
                       }}
-                    />
-                  </div>
-                );
-              })}
+                      onBlur={() => setHoveredMonth(null)}
+                      aria-label={`${MONTH_SHORT_NAMES[idx]} normal: ${val.toFixed(1)} hotspots`}
+                      className="flex-1 flex flex-col items-center justify-end h-full gap-1.5 group cursor-pointer focus:outline-none"
+                    >
+                      <span
+                        data-visible={cardsVisible}
+                        className={cn(
+                          'chart-bar-reveal w-full max-w-[14px] rounded-t-[2px] transition-opacity',
+                          isPeak
+                            ? 'bg-[#A4FFF0]'
+                            : isHovered
+                              ? 'bg-white/70'
+                              : 'bg-white/25 group-hover:bg-white/55'
+                        )}
+                        style={{
+                          height: `${heightPct}%`,
+                          transitionDelay: `${idx * 35}ms`,
+                        }}
+                      />
+                    </button>
+                  );
+                })}
+              </div>
             </div>
-            <div className="flex items-center justify-between text-[10px] font-brand text-zinc-500">
+            <div className="flex items-center justify-between text-[10px] font-brand text-zinc-500 pl-7">
               {MONTH_SHORT_NAMES.map((m, idx) => (
                 <span
                   key={m}
@@ -119,6 +184,10 @@ export function AnswerCardsGrid({
                   {m.slice(0, 1)}
                 </span>
               ))}
+            </div>
+            <div className="flex items-center justify-between text-[10px] text-zinc-500 pl-7">
+              <span>Y: Hotspots (NOAA-20 eq.)</span>
+              <span>X: Month</span>
             </div>
           </div>
 
@@ -153,7 +222,38 @@ export function AnswerCardsGrid({
         <div className="flex-1 flex flex-col justify-between gap-5">
           {/* Same-Month Multi-Year Comparison Bars */}
           <div className="flex flex-col gap-2 pt-2">
-            <div className="flex items-end gap-2 h-28 border-b border-white/[0.08] pb-2">
+            <div className="relative flex items-end gap-2 h-28 border-b border-white/[0.08] pb-2">
+              {hoveredHist !== null && hoveredHistItem && (
+                <ChartTooltip
+                  title="Same-Month History"
+                  badge={
+                    hoveredHistItem.ratio !== null
+                      ? `${hoveredHistItem.ratio.toFixed(2)}× normal`
+                      : undefined
+                  }
+                  x={hoveredHist.x}
+                  y={hoveredHist.y}
+                  rows={[
+                    {
+                      axis: 'X',
+                      label: 'Period',
+                      value: formatYmLabel(hoveredHistItem.ym),
+                    },
+                    {
+                      axis: 'Y',
+                      label: 'Hotspots',
+                      value: `${Math.round(hoveredHistItem.hotspots ?? 0).toLocaleString()} pts`,
+                      swatchColor:
+                        hoveredHistItem.ym === focusMonth
+                          ? isWarningClass
+                            ? '#FF6060'
+                            : '#A4FFF0'
+                          : 'rgba(255,255,255,0.45)',
+                    },
+                  ]}
+                />
+              )}
+
               <div className="flex flex-col justify-between h-full text-[10px] tabular-nums text-zinc-500 pr-1">
                 <span>{Math.round(maxHistoryHotspots).toLocaleString()}</span>
                 <span>{Math.round(maxHistoryHotspots / 2).toLocaleString()}</span>
@@ -162,12 +262,22 @@ export function AnswerCardsGrid({
               <div className="flex-1 flex items-end justify-between gap-1 h-full">
                 {sameMonthHistory.map((item, idx) => {
                   const isFocus = item.ym === focusMonth;
+                  const isHovered = hoveredHist?.idx === idx;
                   const pct = Math.max(((item.hotspots ?? 0) / maxHistoryHotspots) * 100, 5);
                   return (
-                    <div
+                    <button
                       key={item.ym}
-                      className="flex-1 h-full flex items-end justify-center"
-                      title={`${formatYmLabel(item.ym)}: ${(item.hotspots ?? 0).toLocaleString()} hotspots (${item.ratio?.toFixed(2) ?? '—'}x)`}
+                      type="button"
+                      onMouseEnter={(e) => setHoveredHist({ idx, x: e.clientX, y: e.clientY })}
+                      onMouseMove={(e) => setHoveredHist({ idx, x: e.clientX, y: e.clientY })}
+                      onMouseLeave={() => setHoveredHist(null)}
+                      onFocus={(e) => {
+                        const r = e.currentTarget.getBoundingClientRect();
+                        setHoveredHist({ idx, x: r.left + r.width / 2, y: r.top + r.height / 2 });
+                      }}
+                      onBlur={() => setHoveredHist(null)}
+                      aria-label={`${formatYmLabel(item.ym)}: ${(item.hotspots ?? 0).toLocaleString()} hotspots`}
+                      className="flex-1 h-full flex items-end justify-center cursor-pointer focus:outline-none"
                     >
                       <span
                         data-visible={cardsVisible}
@@ -177,21 +287,23 @@ export function AnswerCardsGrid({
                             ? isWarningClass
                               ? 'bg-[#FF6060]'
                               : 'bg-[#A4FFF0]'
-                            : 'bg-white/25 hover:bg-white/50'
+                            : isHovered
+                              ? 'bg-white/70'
+                              : 'bg-white/25 hover:bg-white/55'
                         )}
                         style={{
                           height: `${pct}%`,
                           transitionDelay: `${idx * 25}ms`,
                         }}
                       />
-                    </div>
+                    </button>
                   );
                 })}
               </div>
             </div>
             <div className="flex items-center justify-between text-[10px] text-zinc-500 tabular-nums pl-8">
               <span>{sameMonthHistory[0]?.year ?? ''}</span>
-              <span>Same-month history ({formatYmLabel(focusMonth).slice(0, 3)})</span>
+              <span>Y: Hotspots · X: {formatYmLabel(focusMonth).slice(0, 3)} across years</span>
               <span>{sameMonthHistory[sameMonthHistory.length - 1]?.year ?? ''}</span>
             </div>
           </div>
