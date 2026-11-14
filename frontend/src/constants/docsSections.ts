@@ -193,7 +193,7 @@ const whyKalbar: DocArticle = {
       blocks: [
         {
           kind: 'text',
-          text: 'Research on Kalimantan fires finds that burning is concentrated in West and Central Kalimantan, mostly on lowland peat. The same study reports that August–October hotspots rise by about 17% in El Niño years and fall by about 85% in La Niña years ([Zahra et al., 2023](https://qg.web.amu.edu.pl/qg/current/10.14746_quageo-2023-0006.pdf)). Peat fires smoulder, are hard to put out, and drive the haze that reaches cities, so early warning matters here.',
+          text: 'Research on Kalimantan fires finds that burning is concentrated in West and Central Kalimantan, mostly on lowland peat. The same study reports that August–October hotspots rise by about 17% in El Niño years and fall by about 85% in La Niña years ([Zahra et al., 2023](https://reference-global.com/article/10.14746/quageo-2023-0006)). Peat fires smoulder, are hard to put out, and drive the haze that reaches cities, so early warning matters here.',
         },
       ],
     },
@@ -1251,7 +1251,7 @@ const references: DocArticle = {
           items: [
             {
               label: 'Zahra et al. (2023), Quaestiones Geographicae — ENSO and hotspots in Kalimantan',
-              href: 'https://qg.web.amu.edu.pl/qg/current/10.14746_quageo-2023-0006.pdf',
+              href: 'https://reference-global.com/article/10.14746/quageo-2023-0006',
             },
           ],
         },

@@ -213,7 +213,7 @@ const SUPPORTING_REFERENCES = [
   },
   {
     label: 'Zahra et al. (2023)',
-    href: 'https://qg.web.amu.edu.pl/qg/current/10.14746_quageo-2023-0006.pdf',
+    href: 'https://reference-global.com/article/10.14746/quageo-2023-0006',
   },
 ] as const;
 
