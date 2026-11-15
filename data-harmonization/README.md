@@ -1,6 +1,16 @@
 # Niskala – Data Harmonization
 
-This folder turns NASA FIRMS active-fire hotspots from two different sensors (MODIS and VIIRS) into one consistent monthly record for West Kalimantan, Indonesia (2002–2026). The output feeds the Niskala web app, which shows district disaster agencies (BPBD) whether the current fire season is earlier or worse than normal.
+This folder turns NASA FIRMS active-fire hotspots from two different sensors (MODIS and VIIRS) into one consistent monthly record for West Kalimantan, Indonesia (2002–2026). Built for **NASA Space Apps Challenge 2026**, Challenge #9: Harmonization of MODIS and VIIRS Hot Spots.
+
+![Python](https://img.shields.io/badge/Python-3.10+-3776AB?logo=python&logoColor=white)
+![pandas](https://img.shields.io/badge/pandas-2-150458?logo=pandas&logoColor=white)
+![NumPy](https://img.shields.io/badge/NumPy-1.24+-013243?logo=numpy&logoColor=white)
+![statsmodels](https://img.shields.io/badge/statsmodels-0.14-4B8BBE)
+![SciPy](https://img.shields.io/badge/SciPy-1.10+-8CAAE6?logo=scipy&logoColor=white)
+![Shapely](https://img.shields.io/badge/Shapely-2-6E9F18)
+![Jupyter](https://img.shields.io/badge/Jupyter-notebooks-F37626?logo=jupyter&logoColor=white)
+
+> **This pipeline feeds the Niskala web app.** Its output (`data/web/`) is copied to [`../frontend/public/data/`](../frontend), where the calendar, district ranking and downloads read it. The web app does no data processing of its own.
 
 ## Why harmonize?
 
@@ -10,7 +20,21 @@ MODIS (1 km, since 2000) is retiring. VIIRS (375 m, NOAA-20 since 2018) sees man
 
 ## Quick start
 
-Large FIRMS files are not stored in this repository. Before the first run, download the yearly country files for **Indonesia** from https://firms.modaps.eosdis.nasa.gov/country/ (MODIS 2001–2025 and VIIRS NOAA-20 2018–2025) into `data/raw/firms/indonesia-yearly/`. Everything else needed is already in `data/raw/`.
+Large FIRMS files are not stored in this repository. Get them in one of two ways before the first run.
+
+**Option 1: ready-to-use folder (recommended).** Download the full `data/` folder and place it at `data-harmonization/data/`:
+
+**Dataset download:** [Google Drive – Niskala data folder](https://drive.google.com/drive/folders/1vVRL2DjfHPPPLKBycCkpsSU2h3lpXxCe?usp=sharing)
+
+**Option 2: download from the original sources.**
+
+| Data | Source | What to download | Save to |
+|:---|:---|:---|:---|
+| NASA FIRMS yearly files (2001–2025) | [FIRMS Yearly Country Data](https://firms.modaps.eosdis.nasa.gov/country/) | Country **Indonesia**: MODIS C6.1 for 2001–2025 (`modis_<year>_Indonesia.csv`) and VIIRS NOAA-20 for 2018–2025 (`viirs-jpss1_<year>_Indonesia.csv`) | `data/raw/firms/indonesia-yearly/` |
+| NASA FIRMS 2026 | [FIRMS Archive Download](https://firms.modaps.eosdis.nasa.gov/download/) (free NASA Earthdata login) | Custom area `108.0,-3.1,114.2,2.1` (W, S, E, N), 1 Jan 2026 to the latest date, CSV, sources MODIS C6.1, VIIRS NOAA-20 and VIIRS S-NPP | `data/raw/firms/kalbar-2026/` (zip files; already in the repo) |
+| SiPongi burned area | [SiPongi – Indikasi Luas Kebakaran](https://sipongi.gakkum.kehutanan.go.id/indikasi-luas-kebakaran) (Ministry of Forestry, Indonesia) | Indicative burned area in hectares: tab *List Data Kabupaten/Kota* for West Kalimantan 2016–2026, and province totals 2015–2026. The site shows tables, so the values were copied into CSV files | `data/raw/sipongi/` (already in the repo) |
+
+The district boundaries (geoBoundaries) and the Niño 3.4 file (NOAA PSL) are small and already in `data/raw/`.
 
 ```bash
 pip install -r requirements.txt
@@ -97,8 +121,8 @@ data-harmonization/
   *We acknowledge the use of data and imagery from LANCE FIRMS (https://earthdata.nasa.gov/firms), part of the NASA Earth Science Data and Information System (ESDIS).*
 * **SiPongi, Ministry of Forestry, Indonesia** – indicative burned area per district, 2016–2026. https://sipongi.gakkum.kehutanan.go.id/indikasi-luas-kebakaran
 * **geoBoundaries gbOpen** – IDN ADM2 district boundaries (CC BY 4.0). https://www.geoboundaries.org
-* **NOAA PSL** – Niño 3.4 anomaly (ERSST v6), for the planned forecast step. https://psl.noaa.gov/data/timeseries/month/DS/NINO34/
+* **NOAA PSL** – Niño 3.4 anomaly (ERSST v6), used as a forecast input. https://psl.noaa.gov/data/timeseries/month/DS/NINO34/
 
 ## Use of AI
 
-Code in this folder was written with help from Claude (Anthropic). The project idea, method choices, and verification of results were done by the Niskala team.
+AI (Claude, by Anthropic) was used to help write the code and notebooks. The problem framing, choice of data, harmonization method, model choices, and pipeline structure came from the team. We worked human-in-the-loop: the team directed each step, reviewed the generated code, and checked every result against the data (for example, the leave-one-year-out test and the SiPongi comparison) before accepting it.
