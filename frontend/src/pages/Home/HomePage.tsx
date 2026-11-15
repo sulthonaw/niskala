@@ -2,6 +2,7 @@ import { Button } from '../../components/ui/Button';
 import { Card } from '../../components/ui/Card';
 import { AnomalyCalendarCard } from '../../features/niskala/components/AnomalyCalendarCard';
 import { AnswerCardsGrid } from '../../features/niskala/components/AnswerCardsGrid';
+import { DistrictMapCard } from '../../features/niskala/components/DistrictMapCard';
 import { DistrictRankingCard } from '../../features/niskala/components/DistrictRankingCard';
 import { LimitationsFooterCard } from '../../features/niskala/components/LimitationsFooterCard';
 import { PrintableReport } from '../../features/niskala/components/PrintableReport';
@@ -138,7 +139,7 @@ export function HomePage() {
         onSelectRegion={setRegion}
       />
 
-      {/* Main Split: Anomaly Calendar (Left 8 cols) + District Ranking (Right 4 cols) */}
+      {/* Main Split: Anomaly Calendar (Left 8 cols) + District Map & Ranking (Right 4 cols) */}
       <section className="grid grid-cols-1 xl:grid-cols-12 gap-5 items-start">
         <div className="xl:col-span-8 min-w-0">
           <AnomalyCalendarCard
@@ -149,7 +150,13 @@ export function HomePage() {
             onSelectFocusMonth={setFocusMonth}
           />
         </div>
-        <div className="xl:col-span-4 min-w-0 xl:sticky xl:top-24 xl:self-start">
+        <div className="xl:col-span-4 min-w-0 flex flex-col gap-5">
+          <DistrictMapCard
+            focusMonth={focusMonth}
+            selectedSlug={regionSlug}
+            rankings={districtRanking}
+            onSelectRegion={setRegion}
+          />
           <DistrictRankingCard
             focusMonth={focusMonth}
             selectedSlug={regionSlug}

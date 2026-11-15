@@ -64,6 +64,7 @@ data-harmonization/
 │   ├── step4_export_points.py
 │   ├── step5_chart.py
 │   ├── step6_forecast.py    next-month forecast and export
+│   ├── step7_district_map.py district outlines for the web map
 │   ├── forecast_lib.py      preprocessing + models (climatology, persistence, Negative Binomial, LSTM)
 │   ├── learning_curves.py   LSTM learning-curve diagnostic
 │   ├── lstm_numpy.py        small LSTM in pure numpy (no PyTorch needed)
@@ -85,6 +86,7 @@ data-harmonization/
 | 4 | Per-district, per-year hotspot CSV files for the download button | `web/points/<district>/<year>.csv` |
 | 5 | Slide chart | `outputs/figures/chart_naive_vs_harmonized.png` |
 | 6 | One-month-ahead forecast per district: climatology, persistence, **Negative Binomial regression (main)**, and a small LSTM (experimental). Features from the EDA: normal level, last 1–2 months' anomaly, Niño 3.4 (lag 1) in the dry season. Leakage-free tests: train ≤ 2020 → test 2021–2025; train ≤ 2025 → test Jan–Oct 2026 | `web/forecast.json`, `interim/forecast_scores.csv`, `interim/forecast_backtest.csv` |
+| 7 | Simplified outlines of the 14 districts, projected to SVG paths for the web map | `web/map.json` |
 
 ## Method in brief
 

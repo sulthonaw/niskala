@@ -14,6 +14,7 @@ STEPS = {
     4: "step4_export_points.py",
     5: "step5_chart.py",
     6: "step6_forecast.py",
+    7: "step7_district_map.py",
 }
 here = Path(__file__).resolve().parent / "pipeline"
 sys.path.insert(0, str(here))

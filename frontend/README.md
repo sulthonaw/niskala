@@ -17,7 +17,7 @@ The web app for **Niskala**, a harmonized hotspot anomaly calendar for West Kali
 The app shows whether this month's fire hotspots in West Kalimantan and its 14 districts are normal or not, using one consistent record built from MODIS and VIIRS.
 
 - **Landing page:** why harmonization is needed, with key results.
-- **Calendar (`/calendar`):** year × month anomaly calendar, answer cards (when, how bad, where), district ranking, and the SiPongi ground check.
+- **Calendar (`/calendar`):** year × month anomaly calendar, answer cards (when, how bad, where), an interactive district map, district ranking, and the SiPongi ground check.
 - **Date range and export:** choose a range, then download raw hotspots (CSV), a monthly summary (CSV), or a printable report (PDF).
 - **Docs (`/docs`):** method, formulas, data characteristics, forecast model, and roadmap.
 
@@ -56,6 +56,7 @@ cp -r data/web/* ../frontend/public/data/
 | `calendar.json` | Monthly harmonized counts, normals, ratios and classes      |
 | `sipongi.json`  | Hotspots vs SiPongi burned area per year                    |
 | `annual.json`   | Naive vs harmonized yearly totals                           |
+| `map.json`      | District outlines for the interactive map                    |
 | `points/`       | Raw hotspot points for the CSV download                     |
 
 ## Project structure

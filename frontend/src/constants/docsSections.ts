@@ -169,6 +169,7 @@ const whatIsNiskala: DocArticle = {
           kind: 'list',
           items: [
             '**Calendar (`/calendar`):** Pick West Kalimantan or any of the 14 districts, jump to reference months (`Jul 2026` or `Oct 2026`), or toggle between the color grid and the sortable table. Rows from January 2001 to June 2002 appear as **Terra only** (uncalibrated).',
+            '**District Map:** Each of the 14 districts is colored by its ratio to normal for the focus month, using the calendar colors. Hover for the numbers, click a district to open it, or press **Whole province** to go back. Hatched districts have fewer than 20 hotspots, so their ratio is less reliable.',
             '**District Ranking (`>= 20 pts` rule):** Months with tiny normal averages can look like extreme spikes from just one or two detections. Districts with fewer than **20** harmonized hotspots in the focus month are marked *low activity* and placed below active districts.',
             '**Calibration & Validation (top of Docs):** Lists each region’s shrunk and raw NOAA-20 / Aqua multipliers, normal peak months, and 2016–2025 Spearman correlation against SiPongi.',
           ],
@@ -260,12 +261,12 @@ const pipelineProcess: DocArticle = {
   label: 'Process overview',
   title: 'How the pipeline works',
   summary:
-    'The pipeline runs in six steps, from raw satellite files to the JSON files the website reads. Each step writes its result to disk, so any step can be checked or rerun on its own.',
-  sources: ['data-harmonization/run_pipeline.py', 'data-harmonization/pipeline/config.py'],
+    'The pipeline runs in seven steps, from raw satellite files to the JSON files the website reads. Each step writes its result to disk, so any step can be checked or rerun on its own.',
+  sources: ['data-harmonization/run_pipeline.py', 'data-harmonization/pipeline/config.py', 'data-harmonization/pipeline/step7_district_map.py'],
   sections: [
     {
       id: 'steps',
-      heading: 'The six steps',
+      heading: 'The seven steps',
       blocks: [
         {
           kind: 'table',
@@ -274,9 +275,10 @@ const pipelineProcess: DocArticle = {
             ['1', 'step1_prepare_hotspots.py', 'Unzips FIRMS files, keeps points inside the box, assigns each point to a district, converts UTC to local time (WIB), counts per month, district and sensor'],
             ['2', 'step2_harmonize.py', 'Estimates the NOAA-20 / Aqua ratio per district and builds one NOAA-20-equivalent series'],
             ['3', 'step3_anomaly_sipongi_export.py', 'Computes normals, anomaly ratios and classes; compares with SiPongi; writes calendar, annual and SiPongi JSON'],
-            ['4', 'step4_export_points.py', 'Exports recent hotspot points for the map'],
+            ['4', 'step4_export_points.py', 'Writes the hotspot points per district and year for the CSV download'],
             ['5', 'step5_chart.py', 'Draws the naive-versus-harmonized chart'],
             ['6', 'step6_forecast.py', 'Trains the forecast models, runs the backtests and writes forecast.json'],
+            ['7', 'step7_district_map.py', 'Simplifies the 14 district outlines from geoBoundaries and converts them to SVG paths for the district map'],
           ],
         },
       ],
@@ -318,7 +320,8 @@ const pipelineProcess: DocArticle = {
             ['annual.json', 'Yearly totals per district: Aqua, Terra, NOAA-20, naive sum and harmonized'],
             ['sipongi.json', 'Burned area next to hotspots per district and year, with correlation and flags'],
             ['forecast.json', 'One-month outlook and backtest metrics (pipeline output; not yet displayed in the web UI)'],
-            ['points/', 'Recent hotspot points for a future map view (not yet displayed in the web UI)'],
+            ['map.json', 'District outlines (SVG paths and label positions) for the interactive district map'],
+            ['points/', 'Raw hotspot points per district and year, used by the Download CSV button'],
           ],
         },
       ],
